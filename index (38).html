@@ -1,0 +1,2909 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>世界之最：寰宇數據終端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Orbitron:wght@500;700;900&display=swap');
+        
+        :root {
+            --cosmic-bg: radial-gradient(circle at 50% 50%, #0b1528 0%, #050b14 70%, #010307 100%);
+            --cyber-cyan: #06b6d4;
+            --cyber-gold: #fbbf24;
+            --neon-border: linear-gradient(135deg, rgba(6, 182, 212, 0.4) 0%, rgba(124, 58, 237, 0.3) 50%, rgba(251, 191, 36, 0.2) 100%);
+        }
+
+
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background: var(--cosmic-bg);
+            color: #f1f5f9; 
+            overflow: hidden;
+            overscroll-behavior: none;
+            min-height: 100vh;
+        }
+
+
+        .tech-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+
+        /* 寰宇數據庫終端背景與邊線 */
+        .cosmic-terminal {
+            background: var(--cosmic-bg);
+            position: relative;
+        }
+
+
+        .terminal-border {
+            border: 4px solid #1e293b;
+            box-shadow: inset 0 0 80px rgba(6, 182, 212, 0.15), 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+
+        /* 光柵背景網格 */
+        .grid-matrix {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+
+        /* 星光璀璨飄移粒子 */
+        @keyframes starFloat {
+            0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(50px) scale(1.2); opacity: 0; }
+        }
+
+
+        .star-dust { 
+            animation: starFloat linear infinite; 
+            position: absolute; 
+            background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            pointer-events: none; 
+            z-index: 1;
+        }
+
+
+        /* 量子圓環 */
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .orbit-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px dashed rgba(6, 182, 212, 0.08);
+            animation: rotateRing 40s linear infinite;
+            pointer-events: none;
+        }
+
+
+        /* Glassmorphism Space Panel */
+        .space-glass { 
+            background: rgba(8, 15, 30, 0.75); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(6, 182, 212, 0.2); 
+            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(6, 182, 212, 0.05); 
+        }
+
+
+        /* Tech Cyber Card Interactives */
+        .cyber-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+        }
+        .cyber-card:hover::before {
+            transform: translateX(100%);
+        }
+        .cyber-card:hover { 
+            transform: translateY(-3px); 
+            border-color: rgba(6, 182, 212, 0.8);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+
+
+        /* Custom Scrollbar */
+        .timeline-container::-webkit-scrollbar { height: 8px; }
+        .timeline-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.4); border-radius: 10px; }
+        .timeline-container::-webkit-scrollbar-thumb { background: rgba(6, 182, 212, 0.3); border-radius: 10px; }
+        .timeline-container::-webkit-scrollbar-thumb:hover { background: rgba(6, 182, 212, 0.6); }
+
+
+        /* Metallic Medal Gradients for High-tech Look */
+        .medal-cyan {
+            background: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+            color: #083344;
+        }
+        .medal-purple {
+            background: linear-gradient(135deg, #c084fc 0%, #7c3aed 100%);
+            box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+            color: #2e1065;
+        }
+        .medal-gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+            color: #451a03;
+        }
+        .medal-dim {
+            background: rgba(30, 41, 59, 0.8);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+
+        .fade-in { animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+
+        #volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 70px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            cursor: pointer;
+        }
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #06b6d4;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(6, 182, 212, 0.8);
+        }
+
+
+        /* Mode 2 Card Click Interaction */
+        .m2-hand-card {
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s, opacity 0.2s;
+            cursor: pointer;
+            user-select: none;
+        }
+        .m2-hand-card:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.25);
+        }
+        .m2-hand-card.selected {
+            border-color: #06b6d4 !important;
+            box-shadow: 0 0 0 2px rgba(6,182,212,0.5), 0 8px 24px rgba(6, 182, 212, 0.4) !important;
+            transform: translateY(-3px) scale(1.03);
+        }
+        .m2-placed-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            user-select: none;
+        }
+        .m2-placed-card:hover {
+            border-color: rgba(251,191,36,0.6) !important;
+            box-shadow: 0 0 16px rgba(251,191,36,0.25);
+        }
+        .m2-slot-btn {
+            transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+        }
+        .m2-slot-btn.slot-active {
+            background: rgba(6,182,212,0.2);
+            border-color: #06b6d4;
+            box-shadow: 0 0 12px rgba(6,182,212,0.4);
+            transform: scale(1.15);
+        }
+
+        /* ── 撲克牌手牌樣式 ── */
+        .poker-hand-area {
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 12px 8px 4px;
+            min-height: 160px;
+            overflow-x: auto;
+        }
+        .poker-card-wrapper {
+            margin-left: -18px;
+            transition: transform 0.2s cubic-bezier(0.2,0.8,0.2,1), z-index 0s;
+            cursor: pointer;
+            position: relative;
+        }
+        .poker-card-wrapper:first-child { margin-left: 0; }
+        .poker-card-wrapper:hover { transform: translateY(-18px) scale(1.06); z-index: 30; }
+        .poker-card-wrapper.selected-card { transform: translateY(-24px) scale(1.08); z-index: 35; }
+
+        .poker-card {
+            width: 76px;
+            height: 110px;
+            border-radius: 8px;
+            background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid rgba(6,182,212,0.3);
+            box-shadow: -3px 4px 12px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .poker-card.selected {
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 2px rgba(6,182,212,0.5), -3px 4px 20px rgba(6,182,212,0.4);
+        }
+        .poker-card-img {
+            height: 60%;
+            width: 100%;
+            background: #0f172a;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .poker-card-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .poker-card-body {
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3px 4px;
+            background: rgba(255,255,255,0.04);
+            border-top: 1px solid rgba(6,182,212,0.15);
+        }
+        .poker-card-name {
+            font-size: 8px;
+            font-weight: 700;
+            text-align: center;
+            color: #e2e8f0;
+            line-height: 1.2;
+            font-family: 'Noto Sans TC', sans-serif;
+            word-break: break-all;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .poker-card-check {
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #06b6d4;
+            color: white;
+            font-size: 8px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* 排序插槽 (mode 2) */
+        .m2-slot-card {
+            width: 80px;
+            height: 115px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            border: 2px solid rgba(251,191,36,0.4);
+            background: linear-gradient(160deg, #1e2533 0%, #0f1520 100%);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .m2-slot-card:hover {
+            border-color: rgba(251,191,36,0.7);
+            box-shadow: 0 0 16px rgba(251,191,36,0.2);
+        }
+
+        /* M3 四角 layout */
+        .m3-corner-player {
+            position: absolute;
+            z-index: 20;
+            pointer-events: auto;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 6px;
+            transition: all 0.3s;
+        }
+        .m3-mini-card-wrap {
+            margin-left: -14px;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        .m3-mini-card-wrap:first-child { margin-left: 0; }
+        .m3-mini-card-wrap:hover { transform: translateY(-8px); z-index: 30; }
+        .m3-mini-card {
+            width: 46px; height: 68px;
+            border-radius: 6px;
+            background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid rgba(100,116,139,0.5);
+            display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: -3px 0 8px rgba(0,0,0,0.4);
+            transition: border-color 0.2s;
+        }
+        .m3-mini-card.selected-mini { border-color: #f59e0b; box-shadow: 0 0 12px rgba(245,158,11,0.5); }
+        .m3-mini-card-img { height: 55%; background: #0a1020; }
+        .m3-mini-card-img img { width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s; }
+        .m3-mini-card-label { height:45%;display:flex;align-items:center;justify-content:center;padding:2px 3px;background:rgba(255,255,255,0.04);border-top:1px solid rgba(100,116,139,0.2); }
+        .m3-mini-card-label p { font-size:6px;font-weight:700;text-align:center;color:#cbd5e1;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all; }
+
+        /* M3 答對/答錯閃現動畫 */
+        @keyframes m3FlashIn {
+            0%   { opacity:0; transform: translate(-50%,-50%) scale(0.5); }
+            40%  { opacity:1; transform: translate(-50%,-50%) scale(1.15); }
+            70%  { transform: translate(-50%,-50%) scale(0.97); }
+            100% { opacity:1; transform: translate(-50%,-50%) scale(1); }
+        }
+        @keyframes m3FlashOut {
+            0%   { opacity:1; transform: translate(-50%,-50%) scale(1); }
+            100% { opacity:0; transform: translate(-50%,-50%) scale(1.3); }
+        }
+        .m3-flash-correct {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 200;
+            background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 70%),
+                        linear-gradient(135deg, #0c4a2a 0%, #064e3b 100%);
+            border: 3px solid rgba(52,211,153,0.7);
+            box-shadow: 0 0 60px rgba(52,211,153,0.4), 0 0 20px rgba(6,182,212,0.3);
+            border-radius: 24px;
+            padding: 28px 44px;
+            text-align: center;
+            pointer-events: none;
+            animation: m3FlashIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        .m3-flash-correct.out {
+            animation: m3FlashOut 0.3s ease-in forwards;
+        }
+        .m3-flash-wrong {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 200;
+            background: radial-gradient(circle, rgba(239,68,68,0.15) 0%, transparent 70%),
+                        linear-gradient(135deg, #4c0519 0%, #450a0a 100%);
+            border: 3px solid rgba(239,68,68,0.7);
+            box-shadow: 0 0 60px rgba(239,68,68,0.4), 0 0 20px rgba(239,68,68,0.3);
+            border-radius: 24px;
+            padding: 28px 44px;
+            text-align: center;
+            pointer-events: none;
+            animation: m3FlashIn 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        .m3-flash-wrong.out {
+            animation: m3FlashOut 0.3s ease-in forwards;
+        }
+
+        /* timeline gap pulse for m3 */
+        @keyframes pulse-cyan {
+            0%,100%{transform:scale(1);opacity:0.7;box-shadow:0 0 10px rgba(6,182,212,0.3);}
+            50%{transform:scale(1.08);opacity:1;box-shadow:0 0 20px rgba(6,182,212,0.7);}
+        }
+        .gap-pulse-cyan {
+            animation: pulse-cyan 1.5s infinite;
+            background: rgba(6,182,212,0.2) !important;
+            border-color: #06b6d4 !important;
+        }
+
+        /* m3 timeline card (公海) */
+        .m3-tl-card {
+            width: 100px; height: 148px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: linear-gradient(160deg,#0f1f35 0%,#060e1a 100%);
+            border: 2px solid rgba(6,182,212,0.25);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .m3-tl-card:hover { transform: translateY(-6px) scale(1.03); z-index: 20; }
+        .m3-tl-card-img { height: 50%; background:#0a1020; }
+        .m3-tl-card-img img { width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s; }
+        .m3-tl-card-body { height:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 5px;gap:2px; }
+
+        /* current card in m3 – large preview */
+        .m3-current-preview {
+            width: 110px; height: 160px;
+            border-radius: 10px;
+            background: linear-gradient(160deg,#162030 0%,#0b1220 100%);
+            border: 2px solid rgba(6,182,212,0.4);
+            box-shadow: 0 0 24px rgba(6,182,212,0.2), 0 8px 20px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .m3-current-preview-img { height: 55%; background:#0a1020; }
+        .m3-current-preview-img img { width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s; }
+        .m3-current-preview-body { height:45%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:5px 6px;gap:3px;border-top:1px solid rgba(6,182,212,0.15); }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col select-none text-slate-100">
+
+
+    <!-- 全螢幕及音訊引導輔助 -->
+    <div id="fs-helper" class="fixed inset-0 bg-slate-950/95 z-[110] flex flex-col items-center justify-center p-6 text-center transition-all duration-500">
+        <div class="space-glass p-8 sm:p-12 rounded-3xl max-w-md border border-cyan-500/30">
+            <i class="fas fa-satellite-dish text-6xl text-cyan-400 mb-6 animate-pulse"></i>
+            <h2 class="text-3xl font-black mb-4 tech-font text-cyan-300">連線至寰宇數據庫</h2>
+            <p class="text-slate-300 mb-8 text-sm leading-relaxed">我們即將載入量子數據對戰模式。為了呈現最完美的自適應滑動介面，建議您授權開啟最佳化連線模式。</p>
+            <button onclick="requestStartGame()" class="bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-xl text-base shadow-lg transition-all hover:scale-105 active:scale-95 tech-font tracking-widest">
+                初始化終端機
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ================= UNIFIED TOP NAVIGATION BAR ================= -->
+    <header id="game-header" class="hidden relative p-4 md:p-5 border-b border-cyan-500/10 bg-slate-950/80 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-4 z-[60] absolute top-0 w-full h-auto md:h-[72px] shrink-0">
+        
+        <!-- Left Section: Back Home Button & Title Group -->
+        <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+            <button id="btn-home" onclick="handleHomeClick()" class="bg-cyan-950/40 hover:bg-cyan-500/20 hover:text-cyan-300 text-slate-300 border border-cyan-500/20 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-1.5 shadow-sm">
+                <i class="fas fa-sign-out-alt"></i> 斷開連線
+            </button>
+            <div class="text-left">
+                <h1 class="text-lg md:text-xl font-extrabold tracking-wider bg-gradient-to-r from-cyan-400 via-indigo-300 to-cyan-500 bg-clip-text text-transparent flex items-center gap-2 drop-shadow-md tech-font">
+                    <i class="fas fa-atom text-cyan-400"></i> COSMIC DATABASE
+                </h1>
+                <p class="text-cyan-400/40 text-[9px] tracking-widest uppercase mt-0.5 tech-font">World Records Terminal v4.2</p>
+            </div>
+        </div>
+
+
+        <!-- Middle Section: Dynamic Mode info -->
+        <div class="hidden md:flex items-center gap-3 bg-black/40 border border-cyan-500/10 px-4 py-1.5 rounded-full text-xs font-mono">
+            <span class="text-cyan-400 font-bold tech-font" id="display-mode-name">DATABANK</span>
+            <div class="h-3 w-[1px] bg-cyan-500/20"></div>
+            <div class="text-slate-300 tech-font"><i class="fas fa-clock mr-1 text-cyan-400/80"></i><span id="game-timer">00:00</span></div>
+        </div>
+
+
+        <!-- Right Section: Volume Controller, Music Track Label, and Fullscreen Integrated Panel -->
+        <div class="flex items-center gap-4 bg-slate-900/40 border border-cyan-500/10 rounded-full px-4 py-1.5 w-full md:w-auto justify-between md:justify-end">
+            <!-- Audio Controller -->
+            <div class="flex items-center gap-2">
+                <button id="btn-mute" onclick="toggleMute()" title="靜音/取消靜音" class="text-cyan-400 hover:text-cyan-300 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/5 transition-all">
+                    <i class="fas fa-volume-up text-sm" id="vol-icon"></i>
+                </button>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" class="w-16 md:w-20">
+                <span id="music-label" class="text-[10px] text-cyan-300 font-bold tracking-wider uppercase ml-1 max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap tech-font">🎵 CYBER LOBBY</span>
+            </div>
+            
+            <div class="h-4 w-[1px] bg-cyan-500/20"></div>
+
+
+            <!-- Fullscreen Button -->
+            <button id="btn-fullscreen" title="全螢幕" onclick="toggleFullscreen()" class="text-slate-300 hover:text-white hover:bg-white/5 w-8 h-8 flex items-center justify-center rounded-full transition-all">
+                <i class="fas fa-expand text-sm" id="fs-icon"></i>
+            </button>
+        </div>
+    </header>
+
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-24 left-1/2 transform -translate-x-1/2 backdrop-blur-md px-6 py-3.5 rounded-full shadow-2xl transition-all duration-500 opacity-0 pointer-events-none z-50 text-center font-bold tracking-wide border text-sm">
+        訊息
+    </div>
+
+
+    <!-- Main Container -->
+    <div id="app" class="flex-1 w-full h-full relative"></div>
+
+
+    <!-- 自定義防誤觸返回大廳對話框 -->
+    <div id="confirm-modal" class="fixed inset-0 z-[120] bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-6">
+        <div class="space-glass p-6 sm:p-8 rounded-2xl max-w-sm w-full border border-red-500/30 shadow-2xl animate-scale-up text-center">
+            <div class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-500/20">
+                <i class="fas fa-power-off text-3xl text-red-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 tech-font">TERMINATE CONNECTION?</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">終止與量子終端的加密連線後，當前尚未校準的歷史與極限數據將會完全重置。</p>
+            <div class="flex gap-3">
+                <button onclick="closeConfirmModal()" class="flex-1 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-bold text-sm transition-colors">
+                    繼續維持
+                </button>
+                <button onclick="confirmQuitGame()" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-bold text-sm shadow-lg transition-all">
+                    斷開連線
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 排行榜 Modal -->
+    <div id="leaderboard-modal" class="fixed inset-0 z-[130] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="space-glass p-6 rounded-3xl max-w-lg w-full border border-cyan-500/20 shadow-2xl relative">
+            <button onclick="closeLeaderboardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-5 border-b border-cyan-500/10 pb-4">
+                <i class="fas fa-trophy text-amber-400 text-xl"></i>
+                <h2 class="text-xl font-black text-white tech-font tracking-widest">排行榜 LEADERBOARD</h2>
+            </div>
+            <!-- Tabs: All 3 modes -->
+            <div class="flex gap-2 mb-4">
+                <button onclick="switchLbTab(1)" id="lb-tab-1" class="lb-tab flex-1 py-2 rounded-xl text-xs font-bold tech-font border border-cyan-500/20 text-slate-400 hover:text-cyan-300 transition-all">模式一・星核判讀</button>
+                <button onclick="switchLbTab(2)" id="lb-tab-2" class="lb-tab flex-1 py-2 rounded-xl text-xs font-bold tech-font border border-cyan-400 bg-cyan-500/20 text-cyan-300 transition-all">模式二・軌道定序</button>
+                <button onclick="switchLbTab(3)" id="lb-tab-3" class="lb-tab flex-1 py-2 rounded-xl text-xs font-bold tech-font border border-cyan-500/20 text-slate-400 hover:text-cyan-300 transition-all">模式三・星際協議</button>
+            </div>
+            <div id="lb-modal-content" class="space-y-1.5 text-xs min-h-[120px]"></div>
+            <button onclick="clearCurrentLbTab()" class="mt-4 text-[10px] text-slate-500 hover:text-rose-400 tech-font transition-colors">清除此排行榜</button>
+        </div>
+    </div>
+
+    <!-- Tutorial Modal -->
+    <div id="tutorial-modal" class="fixed inset-0 z-[145] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="space-glass p-6 rounded-3xl max-w-sm w-full border border-cyan-500/30 shadow-2xl text-center animate-scale-up relative">
+            <div id="tut-icon" class="text-5xl mb-3"></div>
+            <div id="tut-badge" class="inline-block text-[9px] font-bold tracking-widest px-3 py-1 rounded-full border mb-3 tech-font"></div>
+            <h2 id="tut-title" class="text-xl font-black text-white tech-font tracking-widest mb-3"></h2>
+            <div id="tut-steps" class="text-left space-y-2.5 mb-5"></div>
+            <button id="tut-start-btn" class="w-full font-bold py-3.5 rounded-xl shadow-lg tracking-widest transition-all tech-font uppercase text-sm">
+                <i class="fas fa-play mr-2"></i> 開始遊戲
+            </button>
+            <button onclick="closeTutorial()" class="mt-3 w-full text-[11px] text-slate-500 hover:text-slate-300 tech-font transition-colors">略過教學，直接進入</button>
+        </div>
+    </div>
+
+    <!-- Name Entry Keyboard Modal -->
+    <div id="name-entry-modal" class="fixed inset-0 z-[140] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="space-glass p-6 rounded-3xl max-w-sm w-full border border-cyan-500/30 shadow-2xl text-center">
+            <div class="text-4xl mb-3" id="name-entry-icon">🏆</div>
+            <h2 class="text-xl font-black text-white tech-font tracking-widest mb-1" id="name-entry-title">RECORD YOUR NAME</h2>
+            <p class="text-xs text-slate-400 mb-4 tech-font" id="name-entry-subtitle">輸入你的排行榜大名（最多 8 字）</p>
+            <!-- Display -->
+            <div class="bg-slate-950 border-2 border-cyan-500/40 rounded-2xl px-4 py-3 mb-5 text-center min-h-[52px] flex items-center justify-center">
+                <span id="name-display" class="text-2xl font-black text-cyan-300 tech-font tracking-widest">_</span>
+            </div>
+            <!-- Keyboard rows -->
+            <div class="flex flex-col gap-2 mb-4">
+                <div class="flex justify-center gap-1.5" id="kb-row-1"></div>
+                <div class="flex justify-center gap-1.5" id="kb-row-2"></div>
+                <div class="flex justify-center gap-1.5" id="kb-row-3"></div>
+                <div class="flex justify-center gap-2 mt-1">
+                    <button onclick="nameKeyPress(' ')" class="flex-1 h-10 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 rounded-xl text-xs font-bold tech-font transition-all active:scale-95">SPACE</button>
+                    <button onclick="nameBackspace()" class="px-5 h-10 bg-slate-800 hover:bg-rose-900/40 border border-slate-600 hover:border-rose-500/40 text-slate-300 hover:text-rose-300 rounded-xl text-xs font-bold tech-font transition-all active:scale-95"><i class="fas fa-backspace"></i></button>
+                </div>
+            </div>
+            <button onclick="nameConfirm()" class="w-full bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg tracking-widest transition-all tech-font uppercase text-sm">
+                <i class="fas fa-check mr-2"></i> 確認登錄
+            </button>
+            <button onclick="nameSkip()" class="mt-3 w-full text-[11px] text-slate-500 hover:text-slate-300 tech-font transition-colors">略過，不登錄排行榜</button>
+        </div>
+    </div>
+
+    <script>
+        let currentLbTab = 2;
+
+        // ── Name Entry Keyboard ──
+        const KB_ROWS = ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'];
+        let nameEntryBuffer = '';
+        let nameEntryCallback = null; // function(name) called when confirmed
+
+        function buildKeyboard() {
+            KB_ROWS.forEach((row, ri) => {
+                const el = document.getElementById(`kb-row-${ri+1}`);
+                if (!el) return;
+                el.innerHTML = '';
+                [...row].forEach(ch => {
+                    const btn = document.createElement('button');
+                    btn.textContent = ch;
+                    btn.className = 'w-8 h-9 bg-slate-800 hover:bg-cyan-900/50 border border-slate-600 hover:border-cyan-500/50 text-white rounded-lg text-xs font-bold tech-font transition-all active:scale-90 active:bg-cyan-700/40';
+                    btn.onclick = () => nameKeyPress(ch);
+                    el.appendChild(btn);
+                });
+            });
+        }
+
+        function nameKeyPress(ch) {
+            if (nameEntryBuffer.length >= 8) return;
+            playSFX('click');
+            nameEntryBuffer += ch;
+            updateNameDisplay();
+        }
+        function nameBackspace() {
+            if (!nameEntryBuffer.length) return;
+            playSFX('click');
+            nameEntryBuffer = nameEntryBuffer.slice(0, -1);
+            updateNameDisplay();
+        }
+        function updateNameDisplay() {
+            const el = document.getElementById('name-display');
+            if (el) el.textContent = nameEntryBuffer || '_';
+        }
+        function nameConfirm() {
+            const name = nameEntryBuffer.trim() || 'UNKNOWN';
+            closeNameEntry();
+            if (nameEntryCallback) nameEntryCallback(name);
+        }
+        function nameSkip() {
+            closeNameEntry();
+            if (nameEntryCallback) nameEntryCallback(null);
+        }
+        function closeNameEntry() {
+            const modal = document.getElementById('name-entry-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        function openNameEntry({ icon = '🏆', title = 'RECORD YOUR NAME', subtitle = '輸入你的排行榜大名（最多 8 字）', onConfirm }) {
+            nameEntryBuffer = '';
+            nameEntryCallback = onConfirm;
+            updateNameDisplay();
+            buildKeyboard();
+            document.getElementById('name-entry-icon').textContent = icon;
+            document.getElementById('name-entry-title').textContent = title;
+            document.getElementById('name-entry-subtitle').textContent = subtitle;
+            const modal = document.getElementById('name-entry-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // ── Leaderboard Modal ──
+        function openLeaderboardModal() {
+            playSFX('click');
+            currentLbTab = 1;
+            renderLeaderboardModal();
+            const modal = document.getElementById('leaderboard-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeLeaderboardModal() {
+            const modal = document.getElementById('leaderboard-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        function switchLbTab(n) {
+            currentLbTab = n;
+            renderLeaderboardModal();
+        }
+        function clearCurrentLbTab() {
+            clearLeaderboard(currentLbTab);
+        }
+        function renderLeaderboardModal() {
+            [1,2,3].forEach(n => {
+                const tab = document.getElementById(`lb-tab-${n}`);
+                if (!tab) return;
+                if (n === currentLbTab) {
+                    tab.className = 'lb-tab flex-1 py-2 rounded-xl text-xs font-bold tech-font border border-cyan-400 bg-cyan-500/20 text-cyan-300 transition-all';
+                } else {
+                    tab.className = 'lb-tab flex-1 py-2 rounded-xl text-xs font-bold tech-font border border-cyan-500/20 text-slate-400 hover:text-cyan-300 transition-all';
+                }
+            });
+            const el = document.getElementById('lb-modal-content');
+            if (!el) return;
+
+            // Mode 3 does not record scores
+            if (currentLbTab === 3) {
+                el.innerHTML = '<div class="text-center py-6"><div class="text-2xl mb-2">🌌</div><p class="text-slate-500 tech-font text-xs">星際協議模式不記錄個人排行</p><p class="text-slate-600 text-[10px] mt-1">多人同樂，無需排名</p></div>';
+                const clearBtn = document.querySelector('#lb-modal button[onclick="clearCurrentLbTab()"]');
+                if (clearBtn) clearBtn.classList.add('hidden');
+                return;
+            }
+            const clearBtn = document.querySelector('#lb-modal button[onclick="clearCurrentLbTab()"]');
+            if (clearBtn) clearBtn.classList.remove('hidden');
+
+            const lbMap = { 1: leaderboardM1, 2: leaderboardM2 };
+            const lb = lbMap[currentLbTab] || [];
+            if (lb.length === 0) {
+                el.innerHTML = '<p class="text-slate-600 text-center py-6 tech-font">尚無紀錄</p>';
+                return;
+            }
+            const labelMap = { 1: '分', 2: '關' };
+            const countLabelMap = { 1: '題', 2: '次' };
+            const label = labelMap[currentLbTab];
+            const countLabel = countLabelMap[currentLbTab];
+            el.innerHTML = lb.map((e,i) => `
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg ${i===0?'bg-amber-500/10 border border-amber-500/20':'bg-slate-900/30'}">
+                    <span class="text-sm w-5 text-center ${i===0?'text-amber-400':i===1?'text-slate-300':i===2?'text-amber-700/80':'text-slate-600'} font-bold">${i+1}</span>
+                    <span class="font-bold text-white tech-font truncate max-w-[80px]">${e.name || '---'}</span>
+                    <span class="text-cyan-300 font-bold tech-font">${e.score}${label}</span>
+                    <span class="text-slate-500">/ ${e.count}${countLabel}</span>
+                    <span class="ml-auto text-emerald-400 tech-font">${e.acc}%</span>
+                    <span class="text-slate-600 text-[10px]">${e.date}</span>
+                </div>
+            `).join('');
+        }
+    </script>
+
+    <script>
+        // ==========================================
+        // 1. DATA (90 categories of ultimate world records - 450 items in Chinese)
+        // ==========================================
+        const DATABASE = [
+            // Geography - Nature
+            { cat: "世界最高山峰", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界最高山峰列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Everest_kalapatthar.jpg/320px-Everest_kalapatthar.jpg", items: [{n:"聖母峰", v:8848, w:"https://zh.wikipedia.org/wiki/珠穆朗瑪峰"}, {n:"喬戈里峰(K2)", v:8611, w:"https://zh.wikipedia.org/wiki/喬戈里峰"}, {n:"干城章嘉峰", v:8586, w:"https://zh.wikipedia.org/wiki/干城章嘉峰"}, {n:"洛子峰", v:8516, w:"https://zh.wikipedia.org/wiki/洛子峰"}, {n:"馬卡魯峰", v:8485, w:"https://zh.wikipedia.org/wiki/馬卡魯峰"}] },
+            { cat: "世界最長河流", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界河流列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Nile_River_and_Delta_at_night.jpg/320px-Nile_River_and_Delta_at_night.jpg", items: [{n:"尼羅河", v:6650, w:"https://zh.wikipedia.org/wiki/尼羅河"}, {n:"亞馬遜河", v:6400, w:"https://zh.wikipedia.org/wiki/亞馬遜河"}, {n:"長江", v:6300, w:"https://zh.wikipedia.org/wiki/長江"}, {n:"密西西比河", v:6275, w:"https://zh.wikipedia.org/wiki/密西西比河"}, {n:"葉尼塞河", v:5539, w:"https://zh.wikipedia.org/wiki/葉尼塞河"}] },
+            { cat: "世界最大湖泊(面積)", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/湖泊面積列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Caspian_Sea_from_orbit.jpg/320px-Caspian_Sea_from_orbit.jpg", items: [{n:"裏海", v:37.1, w:"https://zh.wikipedia.org/wiki/裏海"}, {n:"蘇必略湖", v:8.2, w:"https://zh.wikipedia.org/wiki/蘇必略湖"}, {n:"維多利亞湖", v:6.8, w:"https://zh.wikipedia.org/wiki/維多利亞湖"}, {n:"休倫湖", v:5.9, w:"https://zh.wikipedia.org/wiki/休倫湖"}, {n:"密西根湖", v:5.8, w:"https://zh.wikipedia.org/wiki/密西根湖"}] },
+            { cat: "世界最深海溝(深度)", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/海溝列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bathy_Mariana_Plates.jpg/320px-Bathy_Mariana_Plates.jpg", items: [{n:"馬里亞納海溝", v:10911, w:"https://zh.wikipedia.org/wiki/馬里亞納海溝"}, {n:"東加海溝", v:10882, w:"https://zh.wikipedia.org/wiki/湯加海溝"}, {n:"菲律賓海溝", v:10540, w:"https://zh.wikipedia.org/wiki/菲律賓海溝"}, {n:"千島海溝", v:10500, w:"https://zh.wikipedia.org/wiki/千島海溝"}, {n:"克馬德克海溝", v:10047, w:"https://zh.wikipedia.org/wiki/克馬德克海溝"}] },
+            { cat: "世界最大島嶼", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/島嶼面積列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Kulusuk_Island_Greenland_2004-06-23.jpg/320px-Kulusuk_Island_Greenland_2004-06-23.jpg", items: [{n:"格陵蘭島", v:216, w:"https://zh.wikipedia.org/wiki/格陵蘭"}, {n:"新幾內亞島", v:78.5, w:"https://zh.wikipedia.org/wiki/新幾內亞島"}, {n:"婆羅洲", v:74.3, w:"https://zh.wikipedia.org/wiki/婆羅洲"}, {n:"馬達加斯加", v:58.7, w:"https://zh.wikipedia.org/wiki/馬達加斯加島"}, {n:"巴芬島", v:50.7, w:"https://zh.wikipedia.org/wiki/巴芬島"}] },
+            { cat: "世界最大沙漠", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/沙漠列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Great_Sand_Sea_Egypt.jpg/320px-Great_Sand_Sea_Egypt.jpg", items: [{n:"南極沙漠", v:1420, w:"https://zh.wikipedia.org/wiki/南極洲"}, {n:"北極沙漠", v:1398, w:"https://zh.wikipedia.org/wiki/北極"}, {n:"撒哈拉沙漠", v:920, w:"https://zh.wikipedia.org/wiki/撒哈拉沙漠"}, {n:"阿拉伯沙漠", v:233, w:"https://zh.wikipedia.org/wiki/阿拉伯沙漠"}, {n:"戈壁沙漠", v:129, w:"https://zh.wikipedia.org/wiki/戈壁"}] },
+            { cat: "世界最大海洋", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/大洋", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Pacific_Ocean_la_93.png/320px-Pacific_Ocean_la_93.png", items: [{n:"太平洋", v:16525, w:"https://zh.wikipedia.org/wiki/太平洋"}, {n:"大西洋", v:10646, w:"https://zh.wikipedia.org/wiki/大西洋"}, {n:"印度洋", v:7056, w:"https://zh.wikipedia.org/wiki/印度洋"}, {n:"南冰洋", v:2032, w:"https://zh.wikipedia.org/wiki/南冰洋"}, {n:"北冰洋", v:1405, w:"https://zh.wikipedia.org/wiki/北冰洋"}] },
+            
+            // Geography - Countries
+            { cat: "世界面積最大國家", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/國家面積列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/320px-Flag_of_Russia.svg.png", items: [{n:"俄羅斯", v:1709, w:"https://zh.wikipedia.org/wiki/俄羅斯"}, {n:"加拿大", v:998, w:"https://zh.wikipedia.org/wiki/加拿大"}, {n:"中國", v:959, w:"https://zh.wikipedia.org/wiki/中國"}, {n:"美國", v:937, w:"https://zh.wikipedia.org/wiki/美國"}, {n:"巴西", v:851, w:"https://zh.wikipedia.org/wiki/巴西"}] },
+            { cat: "世界面積最小國家", unit: "平方公里", order: "asc", wiki: "https://zh.wikipedia.org/wiki/國家面積列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/St_Peter%27s_Square%2C_Vatican_City_-_Jan_2007.jpg/320px-St_Peter%27s_Square%2C_Vatican_City_-_Jan_2007.jpg", items: [{n:"梵蒂岡", v:0.44, w:"https://zh.wikipedia.org/wiki/梵蒂岡"}, {n:"摩納哥", v:2.02, w:"https://zh.wikipedia.org/wiki/摩納哥"}, {n:"諾魯", v:21, w:"https://zh.wikipedia.org/wiki/諾魯"}, {n:"吐瓦魯", v:26, w:"https://zh.wikipedia.org/wiki/吐瓦魯"}, {n:"聖馬利諾", v:61, w:"https://zh.wikipedia.org/wiki/聖馬利諾"}] },
+            { cat: "世界人口密度最高國家/地區", unit: "人/平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/各國和地區人口密度列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Macau_Night_View.jpg/320px-Macau_Night_View.jpg", items: [{n:"澳門", v:21000, w:"https://zh.wikipedia.org/wiki/澳門"}, {n:"摩納哥", v:19000, w:"https://zh.wikipedia.org/wiki/摩納哥"}, {n:"新加坡", v:8000, w:"https://zh.wikipedia.org/wiki/新加坡"}, {n:"香港", v:6800, w:"https://zh.wikipedia.org/wiki/香港"}, {n:"直布羅陀", v:3300, w:"https://zh.wikipedia.org/wiki/直布羅陀"}] },
+            { cat: "世界海岸線最長國家", unit: "萬公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/海岸線長度列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Peggy%27s_Cove_Lighthouse_at_Sunset_2021.jpg/320px-Peggy%27s_Cove_Lighthouse_at_Sunset_2021.jpg", items: [{n:"加拿大", v:20.2, w:"https://zh.wikipedia.org/wiki/加拿大"}, {n:"印尼", v:5.4, w:"https://zh.wikipedia.org/wiki/印度尼西亞"}, {n:"俄羅斯", v:3.7, w:"https://zh.wikipedia.org/wiki/俄羅斯"}, {n:"菲律賓", v:3.6, w:"https://zh.wikipedia.org/wiki/菲律賓"}, {n:"日本", v:2.9, w:"https://zh.wikipedia.org/wiki/日本"}] },
+            
+            // Biology / Animals
+            { cat: "世界最重動物", unit: "公噸", order: "desc", wiki: "https://zh.wikipedia.org/wiki/最大動物列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Blue_whale_size_comparison.svg/320px-Blue_whale_size_comparison.svg.png", items: [{n:"藍鯨", v:150, w:"https://zh.wikipedia.org/wiki/藍鯨"}, {n:"露脊鯨", v:100, w:"https://zh.wikipedia.org/wiki/露脊鯨"}, {n:"長鬚鯨", v:70, w:"https://zh.wikipedia.org/wiki/長鬚鯨"}, {n:"抹香鯨", v:50, w:"https://zh.wikipedia.org/wiki/抹香鯨"}, {n:"非洲象", v:6, w:"https://zh.wikipedia.org/wiki/非洲象"}] },
+            { cat: "陸地最高動物", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/長頸鹿", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Giraffe_Mikumi_National_Park.jpg/320px-Giraffe_Mikumi_National_Park.jpg", items: [{n:"長頸鹿", v:5.5, w:"https://zh.wikipedia.org/wiki/長頸鹿"}, {n:"非洲象", v:4.0, w:"https://zh.wikipedia.org/wiki/非洲象"}, {n:"亞洲象", v:3.2, w:"https://zh.wikipedia.org/wiki/亞洲象"}, {n:"駝鳥(鳥類最高)", v:2.8, w:"https://zh.wikipedia.org/wiki/鴕鳥"}, {n:"白犀牛", v:1.9, w:"https://zh.wikipedia.org/wiki/白犀牛"}] },
+            { cat: "飛行最快鳥類(俯衝)", unit: "公里/小時", order: "desc", wiki: "https://zh.wikipedia.org/wiki/速度最快的動物列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Falco_peregrinus_tundrius.jpg/320px-Falco_peregrinus_tundrius.jpg", items: [{n:"遊隼", v:389, w:"https://zh.wikipedia.org/wiki/遊隼"}, {n:"金鵰", v:320, w:"https://zh.wikipedia.org/wiki/金鵰"}, {n:"矛隼", v:209, w:"https://zh.wikipedia.org/wiki/矛隼"}, {n:"白喉針尾雨燕", v:169, w:"https://zh.wikipedia.org/wiki/白喉針尾雨燕"}, {n:"軍艦鳥", v:153, w:"https://zh.wikipedia.org/wiki/軍艦鳥"}] },
+            { cat: "壽命最長脊椎動物", unit: "年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/格陵蘭鯊", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Somniosus_microcephalus.jpg/320px-Somniosus_microcephalus.jpg", items: [{n:"格陵蘭鯊", v:400, w:"https://zh.wikipedia.org/wiki/格陵蘭鯊"}, {n:"弓頭鯨", v:211, w:"https://zh.wikipedia.org/wiki/弓頭鯨"}, {n:"亞達伯拉象龜", v:190, w:"https://zh.wikipedia.org/wiki/亞達伯拉象龜"}, {n:"湖鱘", v:152, w:"https://zh.wikipedia.org/wiki/湖鱘"}, {n:"大橙鯛", v:149, w:"https://zh.wikipedia.org/wiki/大橙鯛"}] },
+
+
+            // Astronomy
+            { cat: "太陽系行星體積(直徑)", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/太陽系天體大小列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/320px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg", items: [{n:"木星", v:142984, w:"https://zh.wikipedia.org/wiki/木星"}, {n:"土星", v:120536, w:"https://zh.wikipedia.org/wiki/土星"}, {n:"天王星", v:51118, w:"https://zh.wikipedia.org/wiki/天王星"}, {n:"海王星", v:49528, w:"https://zh.wikipedia.org/wiki/海王星"}, {n:"地球", v:12742, w:"https://zh.wikipedia.org/wiki/地球"}] },
+            { cat: "太陽系行星距離太陽(近至遠)", unit: "億公里", order: "asc", wiki: "https://zh.wikipedia.org/wiki/太陽系", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Mercury_in_color_-_Prockter05-crop.jpg/320px-Mercury_in_color_-_Prockter05-crop.jpg", items: [{n:"水星", v:0.58, w:"https://zh.wikipedia.org/wiki/水星_(行星)"}, {n:"金星", v:1.08, w:"https://zh.wikipedia.org/wiki/金星"}, {n:"地球", v:1.5, w:"https://zh.wikipedia.org/wiki/地球"}, {n:"火星", v:2.28, w:"https://zh.wikipedia.org/wiki/火星"}, {n:"木星", v:7.78, w:"https://zh.wikipedia.org/wiki/木星"}] },
+            { cat: "太陽系行星衛星數量(已知)", unit: "顆", order: "desc", wiki: "https://zh.wikipedia.org/wiki/天然衛星列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Saturn_during_Equinox.jpg/320px-Saturn_during_Equinox.jpg", items: [{n:"土星", v:146, w:"https://zh.wikipedia.org/wiki/土星的衛星"}, {n:"木星", v:95, w:"https://zh.wikipedia.org/wiki/木星的衛星"}, {n:"天王星", v:27, w:"https://zh.wikipedia.org/wiki/天王星的衛星"}, {n:"海王星", v:14, w:"https://zh.wikipedia.org/wiki/海王星的衛星"}, {n:"火星", v:2, w:"https://zh.wikipedia.org/wiki/火星的衛星"}] },
+            { cat: "恆星表面溫度", unit: "K(克耳文)", order: "desc", wiki: "https://zh.wikipedia.org/wiki/恆星光譜", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Hubble_Sirius_A_and_B_artistic_impression.jpg/320px-Hubble_Sirius_A_and_B_artistic_impression.jpg", items: [{n:"天狼星B(白矮星)", v:25200, w:"https://zh.wikipedia.org/wiki/天狼星B"}, {n:"參宿七", v:12100, w:"https://zh.wikipedia.org/wiki/參宿七"}, {n:"天狼星A", v:9940, w:"https://zh.wikipedia.org/wiki/天狼星"}, {n:"太陽", v:5778, w:"https://zh.wikipedia.org/wiki/太陽"}, {n:"比鄰星", v:3042, w:"https://zh.wikipedia.org/wiki/比鄰星"}] },
+
+
+            // Human / Achievements
+            { cat: "現代世界首富紀錄", unit: "十億美元", order: "desc", wiki: "https://zh.wikipedia.org/wiki/福布斯全球富豪榜", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Elon_Musk_Royal_Society.jpg/320px-Elon_Musk_Royal_Society.jpg", items: [{n:"阿爾諾家族(奢侈品)", v:211, w:"https://zh.wikipedia.org/wiki/伯納德·阿諾"}, {n:"伊隆·馬斯克(科技)", v:180, w:"https://zh.wikipedia.org/wiki/伊隆·馬斯克"}, {n:"傑夫·貝佐斯(電商)", v:114, w:"https://zh.wikipedia.org/wiki/傑夫·貝佐斯"}, {n:"拉里·埃里森(軟體)", v:107, w:"https://zh.wikipedia.org/wiki/拉里·埃里森"}, {n:"華倫·巴菲特(投資)", v:106, w:"https://zh.wikipedia.org/wiki/華倫·巴菲特"}] },
+            { cat: "已知史上最高的人", unit: "公分", order: "desc", wiki: "https://zh.wikipedia.org/wiki/巨人列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Robert_Wadlow.jpg/320px-Robert_Wadlow.jpg", items: [{n:"羅伯特·瓦德洛", v:272, w:"https://zh.wikipedia.org/wiki/羅伯特·瓦德洛"}, {n:"約翰·羅根", v:267, w:"https://zh.wikipedia.org/wiki/約翰·羅根_(巨人)"}, {n:"約翰·卡羅爾", v:264, w:"https://zh.wikipedia.org/wiki/約翰·卡羅爾_(巨人)"}, {n:"斯塔德尼克", v:257, w:"https://zh.wikipedia.org/wiki/列昂尼德·斯塔德尼克"}, {n:"特雷·詹森", v:251, w:"https://zh.wikipedia.org/wiki/特雷·詹森"}] },
+            
+            // Architecture & Engineering
+            { cat: "世界最高建築物", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/摩天大樓列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Burj_Khalifa_and_Downtown_Dubai_at_night_%28cropped%29.jpg/320px-Burj_Khalifa_and_Downtown_Dubai_at_night_%28cropped%29.jpg", items: [{n:"哈里發塔", v:828, w:"https://zh.wikipedia.org/wiki/哈里發塔"}, {n:"默迪卡118", v:678, w:"https://zh.wikipedia.org/wiki/默迪卡118"}, {n:"上海中心大廈", v:632, w:"https://zh.wikipedia.org/wiki/上海中心大廈"}, {n:"麥加皇家鐘塔飯店", v:601, w:"https://zh.wikipedia.org/wiki/麥加皇家鐘塔飯店"}, {n:"平安國際金融中心", v:599, w:"https://zh.wikipedia.org/wiki/平安金融中心"}] },
+            { cat: "世界最長跨海大橋", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界大橋列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/HZMB_Jiuzhou_Channel_Bridge_at_night.jpg/320px-HZMB_Jiuzhou_Channel_Bridge_at_night.jpg", items: [{n:"港珠澳大橋", v:55, w:"https://zh.wikipedia.org/wiki/港珠澳大橋"}, {n:"膠州灣大橋", v:41.5, w:"https://zh.wikipedia.org/wiki/膠州灣大橋"}, {n:"杭州灣跨海大橋", v:35.6, w:"https://zh.wikipedia.org/wiki/杭州灣跨海大橋"}, {n:"東海大橋", v:32.5, w:"https://zh.wikipedia.org/wiki/東海大橋"}, {n:"法赫德國王大橋", v:25, w:"https://zh.wikipedia.org/wiki/法赫德國王大橋"}] },
+            { cat: "世界最長鐵路隧道", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/隧道列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Gotthard-Basistunnel_Suedportal_2015.jpg/320px-Gotthard-Basistunnel_Suedportal_2015.jpg", items: [{n:"聖哥達基線隧道", v:57.1, w:"https://zh.wikipedia.org/wiki/聖哥達基線隧道"}, {n:"青函隧道", v:53.8, w:"https://zh.wikipedia.org/wiki/青函隧道"}, {n:"英法海底隧道", v:50.4, w:"https://zh.wikipedia.org/wiki/英法海底隧道"}, {n:"新關角隧道", v:32.6, w:"https://zh.wikipedia.org/wiki/新關角隧道"}, {n:"西秦嶺隧道", v:28.2, w:"https://zh.wikipedia.org/wiki/西秦嶺隧道"}] },
+
+
+            // Entertainment & Culture
+            { cat: "全球影史票房最高電影", unit: "億美元", order: "desc", wiki: "https://zh.wikipedia.org/wiki/全球最高電影票房收入列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Avatar-Teaser-Logo.svg/320px-Avatar-Teaser-Logo.svg.png", items: [{n:"阿凡達", v:29.2, w:"https://zh.wikipedia.org/wiki/阿凡達_(電影)"}, {n:"復仇者聯盟：終局之戰", v:27.9, w:"https://zh.wikipedia.org/wiki/復仇者聯盟：終局之戰"}, {n:"阿凡達：水之道", v:23.2, w:"https://zh.wikipedia.org/wiki/阿凡達：水之道"}, {n:"鐵達尼號", v:22.5, w:"https://zh.wikipedia.org/wiki/鐵達尼號_(1997年電影)"}, {n:"星際大戰：原力覺醒", v:20.6, w:"https://zh.wikipedia.org/wiki/星際大戰：原力覺醒"}] },
+            { cat: "史上最暢銷電子遊戲", unit: "萬份", order: "desc", wiki: "https://zh.wikipedia.org/wiki/電子遊戲銷量排行列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Minecraft_creepers.jpg/320px-Minecraft_creepers.jpg", items: [{n:"當個創世神(Minecraft)", v:30000, w:"https://zh.wikipedia.org/wiki/當個創世神"}, {n:"俠盜獵車手V", v:19000, w:"https://zh.wikipedia.org/wiki/俠盜獵車手V"}, {n:"俄羅斯方塊(EA版)", v:10000, w:"https://zh.wikipedia.org/wiki/俄羅斯方塊"}, {n:"Wii運動(Wii Sports)", v:8290, w:"https://zh.wikipedia.org/wiki/Wii_Sports"}, {n:"絕地求生(PUBG)", v:7500, w:"https://zh.wikipedia.org/wiki/絕地求生"}] },
+            { cat: "YouTube觀看次數最多影片", unit: "億次", order: "desc", wiki: "https://zh.wikipedia.org/wiki/觀看次數最多的YouTube影片列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Baby_Shark_pinkfong.png/320px-Baby_Shark_pinkfong.png", items: [{n:"鯊魚寶寶歌謠", v:130, w:"https://zh.wikipedia.org/wiki/鯊魚寶寶"}, {n:"慢慢來(Despacito)", v:82, w:"https://zh.wikipedia.org/wiki/Despacito"}, {n:"約翰尼約翰尼爸爸", v:68, w:"https://zh.wikipedia.org/wiki/Johny_Johny_Yes_Papa"}, {n:"洗澡歌(CoComelon)", v:64, w:"https://zh.wikipedia.org/wiki/CoComelon"}, {n:"妳的樣子(Shape of You)", v:61, w:"https://zh.wikipedia.org/wiki/Shape_of_You"}] },
+
+
+            // Chemistry & Elements
+            { cat: "地殼中含量最多元素(質量比)", unit: "%", order: "desc", wiki: "https://zh.wikipedia.org/wiki/地殼元素豐度列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Liquid_oxygen_in_a_beaker.jpg/320px-Liquid_oxygen_in_a_beaker.jpg", items: [{n:"氧", v:46.1, w:"https://zh.wikipedia.org/wiki/氧"}, {n:"矽", v:28.2, w:"https://zh.wikipedia.org/wiki/矽"}, {n:"鋁", v:8.2, w:"https://zh.wikipedia.org/wiki/鋁"}, {n:"鐵", v:5.6, w:"https://zh.wikipedia.org/wiki/鐵"}, {n:"鈣", v:4.1, w:"https://zh.wikipedia.org/wiki/鈣"}] },
+            { cat: "熔點最高純金屬元素", unit: "°C", order: "desc", wiki: "https://zh.wikipedia.org/wiki/熔點列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tungsten_single_crystal_and_1cm3_cube.jpg/320px-Tungsten_single_crystal_and_1cm3_cube.jpg", items: [{n:"鎢", v:3422, w:"https://zh.wikipedia.org/wiki/鎢"}, {n:"錸", v:3186, w:"https://zh.wikipedia.org/wiki/錸"}, {n:"鋨", v:3033, w:"https://zh.wikipedia.org/wiki/鋨"}, {n:"鉭", v:3017, w:"https://zh.wikipedia.org/wiki/鉭"}, {n:"鉬", v:2623, w:"https://zh.wikipedia.org/wiki/鉬"}] },
+            { cat: "莫氏硬度最高天然礦物", unit: "級", order: "desc", wiki: "https://zh.wikipedia.org/wiki/莫氏硬度", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Light_shining_on_a_mineral_diamond.jpg/320px-Light_shining_on_a_mineral_diamond.jpg", items: [{n:"鑽石(金剛石)", v:10, w:"https://zh.wikipedia.org/wiki/鑽石"}, {n:"剛玉(藍/紅寶石)", v:9, w:"https://zh.wikipedia.org/wiki/剛玉"}, {n:"黃玉", v:8, w:"https://zh.wikipedia.org/wiki/黃玉"}, {n:"石英", v:7, w:"https://zh.wikipedia.org/wiki/石英"}, {n:"正長石", v:6, w:"https://zh.wikipedia.org/wiki/正長石"}] },
+
+
+            // Tech & High speed
+            { cat: "量產車最快極速紀錄", unit: "公里/小時", order: "desc", wiki: "https://zh.wikipedia.org/wiki/量產車速度記錄", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Bugatti_Chiron_Geneva_2016.jpg/320px-Bugatti_Chiron_Geneva_2016.jpg", items: [{n:"布加迪(Chiron Super Sport)", v:490, w:"https://zh.wikipedia.org/wiki/布加迪Chiron"}, {n:"西爾貝(Tuatara)", v:455, w:"https://zh.wikipedia.org/wiki/西爾貝SSC_Tuatara"}, {n:"科尼賽克(Agera RS)", v:447, w:"https://zh.wikipedia.org/wiki/柯尼塞格Agera"}, {n:"軒尼詩(Venom GT)", v:435, w:"https://zh.wikipedia.org/wiki/軒尼詩毒蛇GT"}, {n:"布加迪(Veyron Super Sport)", v:431, w:"https://zh.wikipedia.org/wiki/布加迪威龍"}] },
+            { cat: "最大載客飛機(乘客量)", unit: "人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/民用航空器列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/A380_Singapore_Changi_Airport.jpg/320px-A380_Singapore_Changi_Airport.jpg", items: [{n:"空中巴士 A380", v:853, w:"https://zh.wikipedia.org/wiki/空中巴士A380"}, {n:"波音 747-8", v:700, w:"https://zh.wikipedia.org/wiki/波音747-8"}, {n:"波音 747-400", v:660, w:"https://zh.wikipedia.org/wiki/波音747"}, {n:"波音 777-300ER", v:550, w:"https://zh.wikipedia.org/wiki/波音777"}, {n:"空中巴士 A350-1000", v:480, w:"https://zh.wikipedia.org/wiki/空中巴士A350"}] },
+            { cat: "高鐵運營里程最長國家", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/高速鐵路列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/CRH380AL_on_the_Beijing-Shanghai_High-Speed_Railway.jpg/320px-CRH380AL_on_the_Beijing-Shanghai_High-Speed_Railway.jpg", items: [{n:"中國", v:45000, w:"https://zh.wikipedia.org/wiki/中華人民共和國高速鐵路"}, {n:"西班牙", v:4300, w:"https://zh.wikipedia.org/wiki/西班牙高速鐵路"}, {n:"日本", v:3200, w:"https://zh.wikipedia.org/wiki/新幹線"}, {n:"法國", v:2700, w:"https://zh.wikipedia.org/wiki/法國高速鐵路"}, {n:"德國", v:1600, w:"https://zh.wikipedia.org/wiki/德國高速鐵路"}] },
+
+
+            // Extras (Wettest, deepest lakes, biggest trees, GDP)
+            { cat: "世界單體最巨樹木(體積)", unit: "立方公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界之最_(樹木)", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Giant_sequoia_General_Sherman.jpg/320px-Giant_sequoia_General_Sherman.jpg", items: [{n:"雪曼將軍樹(美洲杉)", v:1487, w:"https://zh.wikipedia.org/wiki/謝爾曼將軍樹"}, {n:"格蘭特將軍樹", v:1320, w:"https://zh.wikipedia.org/wiki/格蘭特將軍樹"}, {n:"總統樹", v:1278, w:"https://zh.wikipedia.org/wiki/總統樹_(巨杉)"}, {n:"林肯樹", v:1259, w:"https://zh.wikipedia.org/wiki/林肯樹"}, {n:"星木樹", v:1180, w:"https://zh.wikipedia.org/wiki/巨杉"}] },
+            { cat: "世界最深淡水湖", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/湖泊深度列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Lake_Baikal_from_space.jpg/320px-Lake_Baikal_from_space.jpg", items: [{n:"貝加爾湖", v:1642, w:"https://zh.wikipedia.org/wiki/貝加爾湖"}, {n:"坦干依喀湖", v:1470, w:"https://zh.wikipedia.org/wiki/坦干依喀湖"}, {n:"馬拉威湖", v:706, w:"https://zh.wikipedia.org/wiki/馬拉威湖"}, {n:"火山口湖(美國)", v:594, w:"https://zh.wikipedia.org/wiki/火山口湖_(奧勒岡州)"}, {n:"大斯拉夫湖", v:614, w:"https://zh.wikipedia.org/wiki/大斯拉夫湖"}] },
+            { cat: "世界最高瀑布(總落差)", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/瀑布列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Angel_Falls_Venezia.jpg/320px-Angel_Falls_Venezia.jpg", items: [{n:"安赫爾瀑布", v:979, w:"https://zh.wikipedia.org/wiki/安赫爾瀑布"}, {n:"圖蓋拉瀑布", v:948, w:"https://zh.wikipedia.org/wiki/圖蓋拉瀑布"}, {n:"三姐妹瀑布", v:914, w:"https://zh.wikipedia.org/wiki/三姊妹瀑布_(秘魯)"}, {n:"奧洛烏佩納瀑布", v:900, w:"https://zh.wikipedia.org/wiki/奧洛烏佩納瀑布"}, {n:"雲巴伊拉瀑布", v:896, w:"https://zh.wikipedia.org/wiki/雲巴伊拉瀑布"}] },
+            { cat: "全球國內生產總值(GDP)排行", unit: "兆美元", order: "desc", wiki: "https://zh.wikipedia.org/wiki/各國國內生產總值列表_(國際匯率)", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/320px-Flag_of_the_United_States.svg.png", items: [{n:"美國", v:26.9, w:"https://zh.wikipedia.org/wiki/美國經濟"}, {n:"中國", v:17.7, w:"https://zh.wikipedia.org/wiki/中國經濟"}, {n:"德國", v:4.4, w:"https://zh.wikipedia.org/wiki/德國經濟"}, {n:"日本", v:4.2, w:"https://zh.wikipedia.org/wiki/日本經濟"}, {n:"印度", v:3.7, w:"https://zh.wikipedia.org/wiki/印度經濟"}] },
+
+            // ── 地理新增 ──
+            { cat: "世界最大熱帶雨林(面積)", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/熱帶雨林", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Amazon_manaus_forest.jpg/320px-Amazon_manaus_forest.jpg", items: [{n:"亞馬遜雨林", v:550, w:"https://zh.wikipedia.org/wiki/亞馬遜雨林"}, {n:"剛果雨林", v:178, w:"https://zh.wikipedia.org/wiki/剛果盆地"}, {n:"東南亞雨林", v:250, w:"https://zh.wikipedia.org/wiki/東南亞"}, {n:"中美洲雨林", v:50, w:"https://zh.wikipedia.org/wiki/中美洲"}, {n:"澳洲昆士蘭雨林", v:9, w:"https://zh.wikipedia.org/wiki/昆士蘭州"}] },
+            { cat: "世界最長山脈(陸地)", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/山脈列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Andes_cordillera.jpg/320px-Andes_cordillera.jpg", items: [{n:"安地斯山脈", v:7200, w:"https://zh.wikipedia.org/wiki/安地斯山脈"}, {n:"落磯山脈", v:4800, w:"https://zh.wikipedia.org/wiki/落磯山脈"}, {n:"喜馬拉雅山脈", v:2400, w:"https://zh.wikipedia.org/wiki/喜馬拉雅山脈"}, {n:"大分水嶺", v:3500, w:"https://zh.wikipedia.org/wiki/大分水嶺"}, {n:"烏拉山脈", v:2500, w:"https://zh.wikipedia.org/wiki/烏拉山脈"}] },
+            { cat: "世界最大內陸國(面積)", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/內陸國", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Kazakhstan.svg/320px-Flag_of_Kazakhstan.svg.png", items: [{n:"哈薩克", v:272, w:"https://zh.wikipedia.org/wiki/哈薩克斯坦"}, {n:"蒙古", v:156, w:"https://zh.wikipedia.org/wiki/蒙古"}, {n:"衣索比亞", v:110, w:"https://zh.wikipedia.org/wiki/衣索比亞"}, {n:"尼日", v:126, w:"https://zh.wikipedia.org/wiki/尼日"}, {n:"馬里", v:124, w:"https://zh.wikipedia.org/wiki/馬里"}] },
+            { cat: "世界最低窪陸地(海平面以下)", unit: "公尺", order: "asc", wiki: "https://zh.wikipedia.org/wiki/陸地最低點列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Dead_Sea_by_David_Shankbone.jpg/320px-Dead_Sea_by_David_Shankbone.jpg", items: [{n:"死海(以色列/約旦)", v:-430, w:"https://zh.wikipedia.org/wiki/死海"}, {n:"加利利海以南低地", v:-408, w:"https://zh.wikipedia.org/wiki/加利利海"}, {n:"突尼西亞鹽湖低地", v:-17, w:"https://zh.wikipedia.org/wiki/突尼西亞"}, {n:"阿薩勒湖(吉布地)", v:-155, w:"https://zh.wikipedia.org/wiki/阿薩勒湖"}, {n:"圖爾凡盆地(中國)", v:-154, w:"https://zh.wikipedia.org/wiki/吐魯番盆地"}] },
+            { cat: "世界最大群島國家(島嶼數)", unit: "個", order: "desc", wiki: "https://zh.wikipedia.org/wiki/群島", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Flag_of_Indonesia.svg/320px-Flag_of_Indonesia.svg.png", items: [{n:"印尼", v:17508, w:"https://zh.wikipedia.org/wiki/印度尼西亞"}, {n:"菲律賓", v:7641, w:"https://zh.wikipedia.org/wiki/菲律賓"}, {n:"日本", v:6852, w:"https://zh.wikipedia.org/wiki/日本"}, {n:"英國", v:6289, w:"https://zh.wikipedia.org/wiki/英國"}, {n:"挪威", v:5000, w:"https://zh.wikipedia.org/wiki/挪威"}] },
+            { cat: "世界最長海岸線國家", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/海岸線長度列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Flag_of_Canada.svg/320px-Flag_of_Canada.svg.png", items: [{n:"加拿大", v:202080, w:"https://zh.wikipedia.org/wiki/加拿大"}, {n:"挪威", v:58133, w:"https://zh.wikipedia.org/wiki/挪威"}, {n:"印尼", v:54716, w:"https://zh.wikipedia.org/wiki/印度尼西亞"}, {n:"俄羅斯", v:37653, w:"https://zh.wikipedia.org/wiki/俄羅斯"}, {n:"菲律賓", v:36289, w:"https://zh.wikipedia.org/wiki/菲律賓"}] },
+
+            // ── 歷史新增 ──
+            { cat: "歷史上最大帝國(版圖面積)", unit: "萬平方公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/大帝國列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/British_Empire_1897.jpg/320px-British_Empire_1897.jpg", items: [{n:"大英帝國(1920)", v:3360, w:"https://zh.wikipedia.org/wiki/大英帝國"}, {n:"蒙古帝國(1270)", v:3390, w:"https://zh.wikipedia.org/wiki/蒙古帝國"}, {n:"俄羅斯帝國(1895)", v:2286, w:"https://zh.wikipedia.org/wiki/俄羅斯帝國"}, {n:"大西班牙帝國(1810)", v:1350, w:"https://zh.wikipedia.org/wiki/西班牙帝國"}, {n:"大清帝國(1790)", v:1310, w:"https://zh.wikipedia.org/wiki/清朝"}] },
+            { cat: "史上持續時間最長帝國", unit: "年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/帝國列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Roman_Empire_Trajan_117AD.png/320px-Roman_Empire_Trajan_117AD.png", items: [{n:"拜占庭帝國(東羅馬)", v:1058, w:"https://zh.wikipedia.org/wiki/拜占庭帝國"}, {n:"神聖羅馬帝國", v:844, w:"https://zh.wikipedia.org/wiki/神聖羅馬帝國"}, {n:"埃及法老王朝", v:3000, w:"https://zh.wikipedia.org/wiki/古埃及"}, {n:"奧斯曼帝國", v:623, w:"https://zh.wikipedia.org/wiki/奧斯曼帝國"}, {n:"羅馬帝國(西)", v:503, w:"https://zh.wikipedia.org/wiki/羅馬帝國"}] },
+            { cat: "人類最古老文明發源地(估計起始)", unit: "年前", order: "desc", wiki: "https://zh.wikipedia.org/wiki/古代文明", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/320px-All_Gizah_Pyramids.jpg", items: [{n:"美索不達米亞(蘇美爾)", v:6500, w:"https://zh.wikipedia.org/wiki/蘇美爾"}, {n:"古埃及文明", v:5000, w:"https://zh.wikipedia.org/wiki/古埃及"}, {n:"印度河流域文明", v:4500, w:"https://zh.wikipedia.org/wiki/印度河流域文明"}, {n:"古中國(黃河流域)", v:4000, w:"https://zh.wikipedia.org/wiki/中國文明"}, {n:"古希臘文明", v:3200, w:"https://zh.wikipedia.org/wiki/古希臘"}] },
+            { cat: "史上死亡人數最多戰爭", unit: "萬人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/戰爭傷亡統計", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/WorldWar2Casualties.png/320px-WorldWar2Casualties.png", items: [{n:"第二次世界大戰", v:7000, w:"https://zh.wikipedia.org/wiki/第二次世界大戰傷亡"}, {n:"蒙古西征", v:4000, w:"https://zh.wikipedia.org/wiki/蒙古西征"}, {n:"第一次世界大戰", v:2000, w:"https://zh.wikipedia.org/wiki/第一次世界大戰傷亡"}, {n:"太平天國之亂", v:3000, w:"https://zh.wikipedia.org/wiki/太平天國之亂"}, {n:"三十年戰爭", v:800, w:"https://zh.wikipedia.org/wiki/三十年戰爭"}] },
+            { cat: "諾貝爾獎累計最多國家", unit: "人次", order: "desc", wiki: "https://zh.wikipedia.org/wiki/諾貝爾獎", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Nobel_Prize.png/320px-Nobel_Prize.png", items: [{n:"美國", v:413, w:"https://zh.wikipedia.org/wiki/美國諾貝爾獎得主"}, {n:"英國", v:137, w:"https://zh.wikipedia.org/wiki/英國諾貝爾獎得主"}, {n:"德國", v:114, w:"https://zh.wikipedia.org/wiki/德國諾貝爾獎得主"}, {n:"法國", v:72, w:"https://zh.wikipedia.org/wiki/法國諾貝爾獎得主"}, {n:"瑞典", v:33, w:"https://zh.wikipedia.org/wiki/瑞典諾貝爾獎得主"}] },
+            { cat: "世界七大古代奇蹟(建造年代)", unit: "元前年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界七大奇蹟", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/320px-Kheops-Pyramid.jpg", items: [{n:"吉薩大金字塔", v:2560, w:"https://zh.wikipedia.org/wiki/吉薩大金字塔"}, {n:"巴比倫空中花園", v:600, w:"https://zh.wikipedia.org/wiki/巴比倫空中花園"}, {n:"奧林匹亞宙斯像", v:432, w:"https://zh.wikipedia.org/wiki/奧林匹亞宙斯神像"}, {n:"以弗所阿提密斯神廟", v:550, w:"https://zh.wikipedia.org/wiki/以弗所阿提密斯神廟"}, {n:"羅德島巨人像", v:280, w:"https://zh.wikipedia.org/wiki/羅德島巨人像"}] },
+            { cat: "史上最大宗教(信徒人數)", unit: "億人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/宗教人口統計", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Jerusalem_Dome_of_the_rock_BW_14.JPG/320px-Jerusalem_Dome_of_the_rock_BW_14.JPG", items: [{n:"基督教", v:24, w:"https://zh.wikipedia.org/wiki/基督教"}, {n:"伊斯蘭教", v:19, w:"https://zh.wikipedia.org/wiki/伊斯蘭教"}, {n:"印度教", v:12, w:"https://zh.wikipedia.org/wiki/印度教"}, {n:"佛教", v:5, w:"https://zh.wikipedia.org/wiki/佛教"}, {n:"猶太教", v:0.15, w:"https://zh.wikipedia.org/wiki/猶太教"}] },
+            { cat: "世界最古老大學(創立年份)", unit: "年", order: "asc", wiki: "https://zh.wikipedia.org/wiki/大學歷史", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Al-Qarawiyyin_mosque.jpg/320px-Al-Qarawiyyin_mosque.jpg", items: [{n:"波隆那大學(義)", v:1088, w:"https://zh.wikipedia.org/wiki/波隆那大學"}, {n:"牛津大學(英)", v:1096, w:"https://zh.wikipedia.org/wiki/牛津大學"}, {n:"薩拉曼卡大學(西)", v:1134, w:"https://zh.wikipedia.org/wiki/薩拉曼卡大學"}, {n:"劍橋大學(英)", v:1209, w:"https://zh.wikipedia.org/wiki/劍橋大學"}, {n:"蒙彼利埃大學(法)", v:1220, w:"https://zh.wikipedia.org/wiki/蒙彼利埃大學"}] },
+
+            // ── 人文・文化新增 ──
+            { cat: "世界官方語言使用國最多語言", unit: "國", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界語言", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arabic_Calligraphy.jpg/320px-Arabic_Calligraphy.jpg", items: [{n:"英語", v:59, w:"https://zh.wikipedia.org/wiki/英語"}, {n:"法語", v:29, w:"https://zh.wikipedia.org/wiki/法語"}, {n:"阿拉伯語", v:26, w:"https://zh.wikipedia.org/wiki/阿拉伯語"}, {n:"西班牙語", v:20, w:"https://zh.wikipedia.org/wiki/西班牙語"}, {n:"葡萄牙語", v:10, w:"https://zh.wikipedia.org/wiki/葡萄牙語"}] },
+            { cat: "世界最多母語使用者語言", unit: "億人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/語言使用人口列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Chinese_characters.svg/320px-Chinese_characters.svg.png", items: [{n:"普通話(中文)", v:9.2, w:"https://zh.wikipedia.org/wiki/普通話"}, {n:"西班牙語", v:4.75, w:"https://zh.wikipedia.org/wiki/西班牙語"}, {n:"英語", v:3.73, w:"https://zh.wikipedia.org/wiki/英語"}, {n:"印地語", v:3.44, w:"https://zh.wikipedia.org/wiki/印地語"}, {n:"葡萄牙語", v:2.32, w:"https://zh.wikipedia.org/wiki/葡萄牙語"}] },
+            { cat: "全球最古老現存博物館(創立年)", unit: "年", order: "asc", wiki: "https://zh.wikipedia.org/wiki/博物館歷史", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/British_Museum_from_NE_2.JPG/320px-British_Museum_from_NE_2.JPG", items: [{n:"阿什莫爾博物館(英,1683)", v:1683, w:"https://zh.wikipedia.org/wiki/阿什莫爾藝術與考古博物館"}, {n:"大英博物館(英,1753)", v:1753, w:"https://zh.wikipedia.org/wiki/大英博物館"}, {n:"梵蒂岡博物館(1771)", v:1771, w:"https://zh.wikipedia.org/wiki/梵蒂岡博物館"}, {n:"盧浮宮博物館(法,1793)", v:1793, w:"https://zh.wikipedia.org/wiki/盧浮宮"}, {n:"普拉多博物館(西,1819)", v:1819, w:"https://zh.wikipedia.org/wiki/普拉多博物館"}] },
+            { cat: "參觀人數最多博物館", unit: "萬人次/年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/博物館參觀人數列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Louvre_Museum_Wikimedia_Commons.jpg/320px-Louvre_Museum_Wikimedia_Commons.jpg", items: [{n:"盧浮宮(巴黎)", v:900, w:"https://zh.wikipedia.org/wiki/盧浮宮"}, {n:"中國國家博物館(北京)", v:800, w:"https://zh.wikipedia.org/wiki/中國國家博物館"}, {n:"大英博物館(倫敦)", v:780, w:"https://zh.wikipedia.org/wiki/大英博物館"}, {n:"國立故宮博物院(台北)", v:540, w:"https://zh.wikipedia.org/wiki/國立故宮博物院"}, {n:"美國自然歷史博物館", v:500, w:"https://zh.wikipedia.org/wiki/美國自然歷史博物館"}] },
+            { cat: "全球最大宗教建築(樓地板面積)", unit: "平方公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/最大宗教建築列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Angkor_Wat_from_the_air.JPG/320px-Angkor_Wat_from_the_air.JPG", items: [{n:"吳哥窟(柬埔寨)", v:1626000, w:"https://zh.wikipedia.org/wiki/吳哥窟"}, {n:"伊斯蘭卡拉奇清真寺", v:800000, w:"https://zh.wikipedia.org/wiki/費薩爾清真寺"}, {n:"聖彼得大教堂(梵蒂岡)", v:15160, w:"https://zh.wikipedia.org/wiki/聖伯多祿大殿"}, {n:"米蘭主教座堂(義)", v:11700, w:"https://zh.wikipedia.org/wiki/米蘭主教座堂"}, {n:"西敏寺(倫敦)", v:3000, w:"https://zh.wikipedia.org/wiki/西敏寺"}] },
+            { cat: "世界出版書籍最多語言翻譯原著", unit: "語言數", order: "desc", wiki: "https://zh.wikipedia.org/wiki/翻譯書籍統計", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Gutenberg_Bible,_Lenox_Copy,_New_York_Public_Library,_2009._Pic_01.jpg/320px-Gutenberg_Bible,_Lenox_Copy,_New_York_Public_Library,_2009._Pic_01.jpg", items: [{n:"聖經", v:3500, w:"https://zh.wikipedia.org/wiki/聖經翻譯"}, {n:"木偶奇遇記", v:260, w:"https://zh.wikipedia.org/wiki/木偶奇遇記"}, {n:"小王子", v:300, w:"https://zh.wikipedia.org/wiki/小王子"}, {n:"哈利波特系列", v:85, w:"https://zh.wikipedia.org/wiki/哈利波特"}, {n:"唐吉訶德", v:140, w:"https://zh.wikipedia.org/wiki/唐吉訶德"}] },
+            { cat: "史上最暢銷書籍(非宗教)", unit: "億冊", order: "desc", wiki: "https://zh.wikipedia.org/wiki/最暢銷書籍列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg/320px-Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg", items: [{n:"毛語錄(毛澤東)", v:9, w:"https://zh.wikipedia.org/wiki/毛主席語錄"}, {n:"哈利波特系列", v:5, w:"https://zh.wikipedia.org/wiki/哈利波特"}, {n:"百科全書(狄德羅版)", v:0.7, w:"https://zh.wikipedia.org/wiki/百科全書"}, {n:"小王子", v:2, w:"https://zh.wikipedia.org/wiki/小王子"}, {n:"達文西密碼", v:0.8, w:"https://zh.wikipedia.org/wiki/達文西密碼"}] },
+            { cat: "奧運史上金牌最多國家(累計)", unit: "面", order: "desc", wiki: "https://zh.wikipedia.org/wiki/各國奧運獎牌總數", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/320px-Olympic_rings_without_rims.svg.png", items: [{n:"美國", v:1080, w:"https://zh.wikipedia.org/wiki/美國奧運代表隊"}, {n:"蘇聯/俄羅斯", v:672, w:"https://zh.wikipedia.org/wiki/俄羅斯奧運代表隊"}, {n:"英國", v:285, w:"https://zh.wikipedia.org/wiki/英國奧運代表隊"}, {n:"德國", v:283, w:"https://zh.wikipedia.org/wiki/德國奧運代表隊"}, {n:"中國", v:263, w:"https://zh.wikipedia.org/wiki/中國奧運代表隊"}] },
+
+            // ── 經濟・人口新增 ──
+            { cat: "世界人口最多國家", unit: "億人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界人口", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_India.svg/320px-Flag_of_India.svg.png", items: [{n:"印度", v:14.3, w:"https://zh.wikipedia.org/wiki/印度人口"}, {n:"中國", v:14.1, w:"https://zh.wikipedia.org/wiki/中華人民共和國人口"}, {n:"美國", v:3.35, w:"https://zh.wikipedia.org/wiki/美國人口"}, {n:"印尼", v:2.77, w:"https://zh.wikipedia.org/wiki/印尼人口"}, {n:"巴基斯坦", v:2.31, w:"https://zh.wikipedia.org/wiki/巴基斯坦人口"}] },
+            { cat: "世界人口最少國家(主權國)", unit: "人", order: "asc", wiki: "https://zh.wikipedia.org/wiki/各國人口列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_the_Vatican_City.svg/320px-Flag_of_the_Vatican_City.svg.png", items: [{n:"梵蒂岡", v:800, w:"https://zh.wikipedia.org/wiki/梵蒂岡"}, {n:"諾魯", v:10000, w:"https://zh.wikipedia.org/wiki/諾魯"}, {n:"吐瓦魯", v:11000, w:"https://zh.wikipedia.org/wiki/吐瓦魯"}, {n:"帛琉", v:18000, w:"https://zh.wikipedia.org/wiki/帛琉"}, {n:"聖馬利諾", v:34000, w:"https://zh.wikipedia.org/wiki/聖馬力諾"}] },
+            { cat: "人均GDP最高國家(IMF)", unit: "萬美元", order: "desc", wiki: "https://zh.wikipedia.org/wiki/各國人均GDP列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Luxembourg.svg/320px-Flag_of_Luxembourg.svg.png", items: [{n:"盧森堡", v:13.3, w:"https://zh.wikipedia.org/wiki/盧森堡"}, {n:"新加坡", v:10.0, w:"https://zh.wikipedia.org/wiki/新加坡"}, {n:"瑞士", v:9.5, w:"https://zh.wikipedia.org/wiki/瑞士"}, {n:"挪威", v:8.2, w:"https://zh.wikipedia.org/wiki/挪威"}, {n:"美國", v:7.7, w:"https://zh.wikipedia.org/wiki/美國"}] },
+            { cat: "全球最大股票市場(市值)", unit: "兆美元", order: "desc", wiki: "https://zh.wikipedia.org/wiki/股票交易所列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/NYSE_building.jpg/320px-NYSE_building.jpg", items: [{n:"紐約證交所(NYSE)", v:25, w:"https://zh.wikipedia.org/wiki/紐約證券交易所"}, {n:"納斯達克(NASDAQ)", v:24, w:"https://zh.wikipedia.org/wiki/那斯達克"}, {n:"上海證交所(SSE)", v:7, w:"https://zh.wikipedia.org/wiki/上海證券交易所"}, {n:"東京證交所(TSE)", v:6.5, w:"https://zh.wikipedia.org/wiki/東京證券交易所"}, {n:"深圳證交所(SZSE)", v:5, w:"https://zh.wikipedia.org/wiki/深圳證券交易所"}] },
+            { cat: "世界黃金儲量最多國家(官方)", unit: "噸", order: "desc", wiki: "https://zh.wikipedia.org/wiki/黃金儲備", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/GoldBar.jpg/320px-GoldBar.jpg", items: [{n:"美國", v:8133, w:"https://zh.wikipedia.org/wiki/美國黃金儲備"}, {n:"德國", v:3352, w:"https://zh.wikipedia.org/wiki/德國"}, {n:"義大利", v:2452, w:"https://zh.wikipedia.org/wiki/義大利"}, {n:"法國", v:2437, w:"https://zh.wikipedia.org/wiki/法國"}, {n:"中國", v:2191, w:"https://zh.wikipedia.org/wiki/中國黃金儲備"}] },
+            { cat: "世界最多外來移民人口國家", unit: "萬人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/移民統計", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/320px-Flag_of_the_United_States.svg.png", items: [{n:"美國", v:5080, w:"https://zh.wikipedia.org/wiki/美國移民"}, {n:"德國", v:1580, w:"https://zh.wikipedia.org/wiki/德國移民"}, {n:"沙烏地阿拉伯", v:1320, w:"https://zh.wikipedia.org/wiki/沙烏地阿拉伯"}, {n:"俄羅斯", v:1190, w:"https://zh.wikipedia.org/wiki/俄羅斯"}, {n:"英國", v:930, w:"https://zh.wikipedia.org/wiki/英國移民"}] },
+
+            // ── 科學・醫學新增 ──
+            { cat: "最早發現的化學元素(原子序)", unit: "原子序", order: "asc", wiki: "https://zh.wikipedia.org/wiki/元素週期表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Hydrogen_discharge_tube.jpg/320px-Hydrogen_discharge_tube.jpg", items: [{n:"氫(H)", v:1, w:"https://zh.wikipedia.org/wiki/氫"}, {n:"氦(He)", v:2, w:"https://zh.wikipedia.org/wiki/氦"}, {n:"鋰(Li)", v:3, w:"https://zh.wikipedia.org/wiki/鋰"}, {n:"鈹(Be)", v:4, w:"https://zh.wikipedia.org/wiki/鈹"}, {n:"硼(B)", v:5, w:"https://zh.wikipedia.org/wiki/硼"}] },
+            { cat: "諾貝爾物理學獎得主最多國家", unit: "人", order: "desc", wiki: "https://zh.wikipedia.org/wiki/諾貝爾物理學獎", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Nobel_Prize_in_Physics-en.svg/320px-Nobel_Prize_in_Physics-en.svg.png", items: [{n:"美國", v:98, w:"https://zh.wikipedia.org/wiki/諾貝爾物理學獎"}, {n:"英國", v:25, w:"https://zh.wikipedia.org/wiki/英國"}, {n:"德國", v:23, w:"https://zh.wikipedia.org/wiki/德國"}, {n:"法國", v:12, w:"https://zh.wikipedia.org/wiki/法國"}, {n:"蘇聯/俄羅斯", v:11, w:"https://zh.wikipedia.org/wiki/俄羅斯"}] },
+            { cat: "太空探測器飛行最遠距離(人造)", unit: "億公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/航海家1號", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Voyager_spacecraft.jpg/320px-Voyager_spacecraft.jpg", items: [{n:"航海家1號(Voyager 1)", v:240, w:"https://zh.wikipedia.org/wiki/航海家1號"}, {n:"航海家2號(Voyager 2)", v:200, w:"https://zh.wikipedia.org/wiki/航海家2號"}, {n:"先鋒10號(Pioneer 10)", v:130, w:"https://zh.wikipedia.org/wiki/先驅者10號"}, {n:"先鋒11號(Pioneer 11)", v:109, w:"https://zh.wikipedia.org/wiki/先驅者11號"}, {n:"新視野號(New Horizons)", v:80, w:"https://zh.wikipedia.org/wiki/新視野號"}] },
+
+            // ── 交通・基礎設施新增 ──
+            { cat: "世界最繁忙機場(旅客人次)", unit: "萬人次/年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/最繁忙機場列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Hartsfield-Jackson_Atlanta_International_Airport_overview_2.jpg/320px-Hartsfield-Jackson_Atlanta_International_Airport_overview_2.jpg", items: [{n:"亞特蘭大哈茨菲爾德(美)", v:10400, w:"https://zh.wikipedia.org/wiki/亞特蘭大哈茨菲爾德-傑克遜國際機場"}, {n:"達拉斯洛夫菲爾德(美)", v:7300, w:"https://zh.wikipedia.org/wiki/達拉斯勒夫菲爾德機場"}, {n:"倫敦希斯羅機場(英)", v:7900, w:"https://zh.wikipedia.org/wiki/希思羅機場"}, {n:"杜拜國際機場(UAE)", v:8680, w:"https://zh.wikipedia.org/wiki/杜拜國際機場"}, {n:"東京羽田機場(日)", v:8500, w:"https://zh.wikipedia.org/wiki/東京國際機場"}] },
+            { cat: "世界最長公路隧道", unit: "公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/公路隧道列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Laerdal_tunnel_entrance_detail.jpg/320px-Laerdal_tunnel_entrance_detail.jpg", items: [{n:"勒達爾隧道(挪威)", v:24.5, w:"https://zh.wikipedia.org/wiki/勒達爾隧道"}, {n:"鄭箱高速隧道(中國)", v:18.0, w:"https://zh.wikipedia.org/wiki/中國"}, {n:"福尼高速隧道(義大利)", v:16.9, w:"https://zh.wikipedia.org/wiki/福尼隧道"}, {n:"聖白納山隧道(瑞士)", v:16.8, w:"https://zh.wikipedia.org/wiki/大聖伯納山隧道"}, {n:"阿爾貝格隧道(奧地利)", v:13.9, w:"https://zh.wikipedia.org/wiki/阿爾貝格隧道"}] },
+            { cat: "世界最大港口(貨櫃吞吐量)", unit: "萬TEU/年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/世界貨運港口列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Port_of_Singapore_Tanjong_Pagar.jpg/320px-Port_of_Singapore_Tanjong_Pagar.jpg", items: [{n:"上海港", v:4730, w:"https://zh.wikipedia.org/wiki/上海港"}, {n:"新加坡港", v:3660, w:"https://zh.wikipedia.org/wiki/新加坡港"}, {n:"寧波舟山港", v:3350, w:"https://zh.wikipedia.org/wiki/寧波舟山港"}, {n:"深圳港", v:3000, w:"https://zh.wikipedia.org/wiki/深圳港"}, {n:"廣州港", v:2490, w:"https://zh.wikipedia.org/wiki/廣州港"}] },
+            { cat: "世界最高鐵路車站(海拔)", unit: "公尺", order: "desc", wiki: "https://zh.wikipedia.org/wiki/海拔最高鐵路車站", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Tanggula_station.jpg/320px-Tanggula_station.jpg", items: [{n:"唐古拉站(青藏鐵路)", v:5068, w:"https://zh.wikipedia.org/wiki/唐古拉站"}, {n:"風火山站(青藏鐵路)", v:4905, w:"https://zh.wikipedia.org/wiki/風火山站"}, {n:"西藏安多站", v:4702, w:"https://zh.wikipedia.org/wiki/安多站"}, {n:"那曲站(西藏)", v:4513, w:"https://zh.wikipedia.org/wiki/那曲站"}, {n:"拉薩站(西藏)", v:3642, w:"https://zh.wikipedia.org/wiki/拉薩站"}] },
+            { cat: "世界最長高速公路系統", unit: "萬公里", order: "desc", wiki: "https://zh.wikipedia.org/wiki/高速公路列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/US_highway_system_2016.jpg/320px-US_highway_system_2016.jpg", items: [{n:"美國(州際公路)", v:7.7, w:"https://zh.wikipedia.org/wiki/美國州際公路系統"}, {n:"中國(高速公路)", v:17.7, w:"https://zh.wikipedia.org/wiki/中國高速公路"}, {n:"德國(Autobahn)", v:1.35, w:"https://zh.wikipedia.org/wiki/德國高速公路"}, {n:"西班牙", v:1.7, w:"https://zh.wikipedia.org/wiki/西班牙高速公路"}, {n:"法國", v:1.2, w:"https://zh.wikipedia.org/wiki/法國高速公路"}] },
+
+            // ── 政治・國家新增 ──
+            { cat: "民主指數最高國家(EIU)", unit: "分(滿分10)", order: "desc", wiki: "https://zh.wikipedia.org/wiki/民主指數", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Norway.svg/320px-Flag_of_Norway.svg.png", items: [{n:"挪威", v:9.81, w:"https://zh.wikipedia.org/wiki/挪威"}, {n:"紐西蘭", v:9.61, w:"https://zh.wikipedia.org/wiki/紐西蘭"}, {n:"冰島", v:9.52, w:"https://zh.wikipedia.org/wiki/冰島"}, {n:"瑞典", v:9.39, w:"https://zh.wikipedia.org/wiki/瑞典"}, {n:"芬蘭", v:9.20, w:"https://zh.wikipedia.org/wiki/芬蘭"}] },
+
+            // ── 環境・氣候新增 ──
+            { cat: "世界年均降雨量最多地點", unit: "毫米/年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/降雨量", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Monsoon_clouds_Thiruvananthapuram.jpg/320px-Monsoon_clouds_Thiruvananthapuram.jpg", items: [{n:"印度梅加拉亞邦毛辛拉姆", v:11872, w:"https://zh.wikipedia.org/wiki/毛辛拉姆"}, {n:"哥倫比亞洛佩斯德米可伊", v:12892, w:"https://zh.wikipedia.org/wiki/洛佩斯德米可伊"}, {n:"夏威夷威阿萊山", v:11684, w:"https://zh.wikipedia.org/wiki/威阿萊山"}, {n:"紐西蘭米爾福德灣", v:7000, w:"https://zh.wikipedia.org/wiki/米爾福德峽灣"}, {n:"哥倫比亞圖塔帕科", v:8992, w:"https://zh.wikipedia.org/wiki/哥倫比亞"}] },
+            { cat: "地球表面最高氣溫紀錄", unit: "°C", order: "desc", wiki: "https://zh.wikipedia.org/wiki/氣溫紀錄", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Death_Valley_National_Park_sign.jpg/320px-Death_Valley_National_Park_sign.jpg", items: [{n:"死亡谷(美國,1913)", v:56.7, w:"https://zh.wikipedia.org/wiki/死亡谷"}, {n:"科威特巴士拉(2016)", v:53.9, w:"https://zh.wikipedia.org/wiki/科威特"}, {n:"突尼西亞凱魯萬(1931)", v:55, w:"https://zh.wikipedia.org/wiki/突尼西亞"}, {n:"伊朗阿瓦士(2017)", v:53.7, w:"https://zh.wikipedia.org/wiki/伊朗"}, {n:"阿爾及利亞因薩拉(1961)", v:52, w:"https://zh.wikipedia.org/wiki/阿爾及利亞"}] },
+            { cat: "地球表面最低氣溫紀錄", unit: "°C", order: "asc", wiki: "https://zh.wikipedia.org/wiki/氣溫紀錄", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Vostok_Station_2007.jpg/320px-Vostok_Station_2007.jpg", items: [{n:"東方站(南極,1983)", v:-89.2, w:"https://zh.wikipedia.org/wiki/東方站_(南極洲)"}, {n:"俄羅斯奧伊米亞康(1924)", v:-71.2, w:"https://zh.wikipedia.org/wiki/奧伊米亞康"}, {n:"格陵蘭Summit站", v:-70, w:"https://zh.wikipedia.org/wiki/格陵蘭"}, {n:"俄羅斯維科揚斯克", v:-67.8, w:"https://zh.wikipedia.org/wiki/維科揚斯克"}, {n:"加拿大育空斯納格(1947)", v:-63, w:"https://zh.wikipedia.org/wiki/育空地區"}] },
+            { cat: "二氧化碳排放量最多國家", unit: "億噸/年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/各國溫室氣體排放量列表", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Drax_power_station_second_approach.jpg/320px-Drax_power_station_second_approach.jpg", items: [{n:"中國", v:119, w:"https://zh.wikipedia.org/wiki/中國溫室氣體排放"}, {n:"美國", v:50, w:"https://zh.wikipedia.org/wiki/美國溫室氣體排放"}, {n:"印度", v:27, w:"https://zh.wikipedia.org/wiki/印度"}, {n:"俄羅斯", v:18, w:"https://zh.wikipedia.org/wiki/俄羅斯"}, {n:"日本", v:12, w:"https://zh.wikipedia.org/wiki/日本"}] },
+
+            // ── 教育・研究新增 ──
+            { cat: "世界大學排名最高(QS 2024)", unit: "名(排名)", order: "asc", wiki: "https://zh.wikipedia.org/wiki/QS世界大學排名", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/MIT_Dome_night1_Edit.jpg/320px-MIT_Dome_night1_Edit.jpg", items: [{n:"麻省理工學院(MIT)", v:1, w:"https://zh.wikipedia.org/wiki/麻省理工學院"}, {n:"帝國理工學院(倫敦)", v:2, w:"https://zh.wikipedia.org/wiki/帝國理工學院"}, {n:"牛津大學", v:3, w:"https://zh.wikipedia.org/wiki/牛津大學"}, {n:"哈佛大學", v:4, w:"https://zh.wikipedia.org/wiki/哈佛大學"}, {n:"劍橋大學", v:5, w:"https://zh.wikipedia.org/wiki/劍橋大學"}] },
+            { cat: "學術論文發表最多國家", unit: "萬篇/年", order: "desc", wiki: "https://zh.wikipedia.org/wiki/學術出版", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Science_-_The_Endless_Frontier.jpg/320px-Science_-_The_Endless_Frontier.jpg", items: [{n:"中國", v:56, w:"https://zh.wikipedia.org/wiki/中國科學"}, {n:"美國", v:42, w:"https://zh.wikipedia.org/wiki/美國科學"}, {n:"印度", v:15, w:"https://zh.wikipedia.org/wiki/印度"}, {n:"德國", v:10, w:"https://zh.wikipedia.org/wiki/德國"}, {n:"英國", v:9, w:"https://zh.wikipedia.org/wiki/英國"}] }
+        ];
+
+
+        // ==========================================
+        // 2. AUDIO SYSTEM & SMART FALLBACK
+        // ==========================================
+        const AudioSystem = {
+            ctx: null, 
+            masterGain: null, 
+            isMuted: true, 
+            volume: 0.5,
+            currentTrack: null, 
+            bgmSequence: null,
+
+
+            lobbyAudio: null,
+            gameAudio: null,
+
+
+            // 科幻、太空 Ambient 氛圍的 Web Audio 備援合成音色
+            fallbackLobbyScale: [293.66, 329.63, 392.00, 440.00, 587.33], // D 懸浮音階
+            fallbackLobbyPattern: [0, 2, 1, 3, 2, 4, -1, 3, 1, 2, -1],
+            fallbackLobbyTempo: 50,
+            lobbyNoteIdx: 0,
+            lobbyNextTime: 0,
+
+
+            fallbackGameScale: [146.83, 220.00, 293.66, 329.63, 392.00, 440.00], // 速度感低頻極速脈衝
+            fallbackGamePattern: [0, 1, 2, 1, 3, 2, 4, 3, 5, 4, 2, -1],
+            fallbackGameTempo: 130,
+            gameNoteIdx: 0,
+            gameNextTime: 0,
+
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    this.masterGain = this.ctx.createGain();
+                    this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : this.volume, this.ctx.currentTime);
+                    this.masterGain.connect(this.ctx.destination);
+                }
+                
+                if (!this.lobbyAudio) {
+                    this.lobbyAudio = new Audio('lobby.mp3');
+                    this.lobbyAudio.loop = true;
+                    this.lobbyAudio.volume = this.volume;
+                    this.lobbyAudio.load();
+                }
+                if (!this.gameAudio) {
+                    this.gameAudio = new Audio('battle.mp3');
+                    this.gameAudio.loop = true;
+                    this.gameAudio.volume = this.volume;
+                    this.gameAudio.load();
+                }
+            },
+
+
+            toggle() {
+                this.init();
+                if (this.ctx.state === 'suspended') this.ctx.resume();
+                this.isMuted = !this.isMuted;
+                
+                const volIcon = document.getElementById('vol-icon');
+                if (volIcon) {
+                    volIcon.className = this.isMuted ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+                }
+
+
+                if (this.isMuted) {
+                    this.stopAllAudio();
+                } else {
+                    this.playSFX('click');
+                    this.play(this.currentTrack || 'lobby');
+                }
+            },
+
+
+            play(trackType) {
+                this.init();
+                if (this.ctx.state === 'suspended') this.ctx.resume();
+
+
+                this.stopAllAudio();
+                this.currentTrack = trackType;
+
+
+                const musicLabel = document.getElementById('music-label');
+                if (musicLabel) {
+                    musicLabel.textContent = trackType === 'lobby' ? '🎵 CYBER LOBBY' : '🎮 QUANTUM BATTLE';
+                }
+
+
+                if (this.isMuted) return;
+
+
+                const activeAudio = trackType === 'lobby' ? this.lobbyAudio : this.gameAudio;
+                
+                if (activeAudio) {
+                    activeAudio.volume = this.volume;
+                    const playPromise = activeAudio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                            this.startSynthesizedBGM(trackType);
+                        });
+                    }
+                } else {
+                    this.startSynthesizedBGM(trackType);
+                }
+            },
+
+
+            startSynthesizedBGM(trackType) {
+                if (this.bgmSequence) {
+                    cancelAnimationFrame(this.bgmSequence);
+                    this.bgmSequence = null;
+                }
+
+
+                if (trackType === 'lobby') {
+                    this.lobbyNextTime = this.ctx.currentTime + 0.1;
+                    this.lobbyNoteIdx = 0;
+                    this.scheduleLobbySynthLoop();
+                } else {
+                    this.gameNextTime = this.ctx.currentTime + 0.1;
+                    this.gameNoteIdx = 0;
+                    this.scheduleGameSynthLoop();
+                }
+            },
+
+
+            scheduleLobbySynthLoop() {
+                if (this.currentTrack !== 'lobby' || this.isMuted) return;
+                while (this.lobbyNextTime < this.ctx.currentTime + 0.1) {
+                    let n = this.fallbackLobbyPattern[this.lobbyNoteIdx];
+                    if (n !== -1) {
+                        const freq = this.fallbackLobbyScale[n];
+                        this.synthesizeSoftNote(freq, this.lobbyNextTime, 0.08, 'sine', 1.8);
+                    }
+                    this.lobbyNextTime += 60.0 / this.fallbackLobbyTempo;
+                    this.lobbyNoteIdx = (this.lobbyNoteIdx + 1) % this.fallbackLobbyPattern.length;
+                }
+                this.bgmSequence = requestAnimationFrame(() => this.scheduleLobbySynthLoop());
+            },
+
+
+            scheduleGameSynthLoop() {
+                if (this.currentTrack !== 'game' || this.isMuted) return;
+                while (this.gameNextTime < this.ctx.currentTime + 0.1) {
+                    let n = this.fallbackGamePattern[this.gameNoteIdx];
+                    if (n !== -1) {
+                        const freq = this.fallbackGameScale[n];
+                        this.synthesizeSoftNote(freq, this.gameNextTime, 0.03, 'sawtooth', 0.4);
+                        
+                        if (this.gameNoteIdx % 4 === 0) {
+                            this.synthesizeSoftNote(73.42, this.gameNextTime, 0.15, 'triangle', 0.3); // 重低音脈衝
+                        }
+                    }
+                    this.gameNextTime += 60.0 / this.fallbackGameTempo;
+                    this.gameNoteIdx = (this.gameNoteIdx + 1) % this.fallbackGamePattern.length;
+                }
+                this.bgmSequence = requestAnimationFrame(() => this.scheduleGameSynthLoop());
+            },
+
+
+            synthesizeSoftNote(freq, startTime, duration, type='sine', decay=1.0) {
+                if (this.isMuted || !this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, startTime);
+                    gain.gain.setValueAtTime(0, startTime);
+                    gain.gain.linearRampToValueAtTime(duration, startTime + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, startTime + decay);
+                    osc.connect(gain);
+                    gain.connect(this.masterGain);
+                    osc.start(startTime);
+                    osc.stop(startTime + decay + 0.1);
+                } catch(e) {}
+            },
+
+
+            stopAllAudio() {
+                if (this.bgmSequence) {
+                    cancelAnimationFrame(this.bgmSequence);
+                    this.bgmSequence = null;
+                }
+                if (this.lobbyAudio) {
+                    try { this.lobbyAudio.pause(); this.lobbyAudio.currentTime = 0; } catch(e){}
+                }
+                if (this.gameAudio) {
+                    try { this.gameAudio.pause(); this.gameAudio.currentTime = 0; } catch(e){}
+                }
+            },
+
+
+            setVolume(v) {
+                this.volume = parseFloat(v);
+                if (this.masterGain) {
+                    this.masterGain.gain.setValueAtTime(this.isMuted ? 0 : this.volume, this.ctx.currentTime);
+                }
+                if (this.lobbyAudio) this.lobbyAudio.volume = this.volume;
+                if (this.gameAudio) this.gameAudio.volume = this.volume;
+                
+                const icon = document.getElementById('vol-icon');
+                if (icon) {
+                    if (this.isMuted || this.volume === 0) {
+                        icon.className = 'fas fa-volume-mute';
+                    } else if (this.volume < 0.4) {
+                        icon.className = 'fas fa-volume-down';
+                    } else {
+                        icon.className = 'fas fa-volume-up';
+                    }
+                }
+            }
+        };
+
+
+        function playSFX(type) {
+            try {
+                AudioSystem.init();
+                const c = AudioSystem.ctx;
+                if (c.state === 'suspended') c.resume();
+                const gain = c.createGain();
+                gain.connect(AudioSystem.masterGain || c.destination);
+                const t = c.currentTime;
+
+
+                if (type === 'correct') {
+                    [[587.33, 0, 0.08], [880.00, 0.06, 0.08], [1174.66, 0.12, 0.15]].forEach(([f, s, d]) => {
+                        const o = c.createOscillator();
+                        const g = c.createGain();
+                        o.type = 'sine';
+                        o.frequency.value = f;
+                        g.gain.setValueAtTime(0.15, t + s);
+                        g.gain.linearRampToValueAtTime(0, t + s + d);
+                        o.connect(g); g.connect(gain);
+                        o.start(t + s);
+                        o.stop(t + s + d + 0.05);
+                    });
+                } else if (type === 'wrong') {
+                    [[180, 0, 0.12], [120, 0.08, 0.18]].forEach(([f, s, d]) => {
+                        const o = c.createOscillator();
+                        const g = c.createGain();
+                        o.type = 'triangle';
+                        o.frequency.value = f;
+                        g.gain.setValueAtTime(0.2, t + s);
+                        g.gain.linearRampToValueAtTime(0, t + s + d);
+                        o.connect(g); g.connect(gain);
+                        o.start(t + s);
+                        o.stop(t + s + d + 0.05);
+                    });
+                } else if (type === 'click') {
+                    const o = c.createOscillator();
+                    const g = c.createGain();
+                    o.type = 'sine';
+                    o.frequency.value = 1046.50;
+                    g.gain.setValueAtTime(0.05, t);
+                    g.gain.linearRampToValueAtTime(0, t + 0.04);
+                    o.connect(g); g.connect(gain);
+                    o.start(t);
+                    o.stop(t + 0.06);
+                } else if (type === 'win') {
+                    [[293.66,0,0.1],[392.00,0.1,0.1],[587.33,0.2,0.1],[880.00,0.3,0.15], [1174.66,0.45,0.3]].forEach(([f,s,d]) => {
+                        const o = c.createOscillator();
+                        const g = c.createGain();
+                        o.type = 'sine';
+                        o.frequency.value = f;
+                        g.gain.setValueAtTime(0.18, t + s);
+                        g.gain.linearRampToValueAtTime(0, t + s + d);
+                        o.connect(g); g.connect(gain);
+                        o.start(t + s);
+                        o.stop(t + s + d + 0.05);
+                    });
+                }
+            } catch(e) {}
+        }
+
+
+        function setVolume(v) { AudioSystem.setVolume(v); }
+        function toggleMute() { AudioSystem.toggle(); }
+
+
+        // ==========================================
+        // 3. GAME STATE MANAGEMENT
+        // ==========================================
+        let gameState = {
+            screen: 'menu',
+            mode: 1, 
+            roundSeconds: 0,
+            timerInterval: null,
+            
+            m1Score: 0,
+            m1Count: 1,
+            m1CorrectAnswer: null,
+            m1WikiInfo: null,
+
+            m2Difficulty: 3,
+            m2CurrentCat: null,
+            m2SelectedItems: [],
+            m2Score: 0,
+            m2Count: 0,
+
+            m3Players: 2,
+            m3RoundsTotal: 4,
+            m3Round: 1,
+            m3Scores: [],
+            m3CurrentPlayer: 0,
+            m3CatData: null,
+            m3Board: [],
+            m3UnplacedItems: [],
+            m3CurrentCard: null
+        };
+
+        // Leaderboard storage (session-based)
+        let leaderboardM1 = JSON.parse(localStorage.getItem('lb_m1') || '[]');
+        let leaderboardM2 = JSON.parse(localStorage.getItem('lb_m2') || '[]');
+        let leaderboardM3 = JSON.parse(localStorage.getItem('lb_m3') || '[]');
+
+        function saveLeaderboard(mode, score, count, name) {
+            const entry = { name: name || 'UNKNOWN', score, count, acc: count > 0 ? Math.round(score/count*100) : 0, date: new Date().toLocaleDateString('zh-TW') };
+            if (mode === 1) {
+                leaderboardM1.unshift(entry);
+                leaderboardM1 = leaderboardM1.slice(0, 10);
+                try { localStorage.setItem('lb_m1', JSON.stringify(leaderboardM1)); } catch(e){}
+            } else if (mode === 2) {
+                leaderboardM2.unshift(entry);
+                leaderboardM2 = leaderboardM2.slice(0, 10);
+                try { localStorage.setItem('lb_m2', JSON.stringify(leaderboardM2)); } catch(e){}
+            } else {
+                leaderboardM3.unshift(entry);
+                leaderboardM3 = leaderboardM3.slice(0, 10);
+                try { localStorage.setItem('lb_m3', JSON.stringify(leaderboardM3)); } catch(e){}
+            }
+        }
+
+        // ── Wiki 圖片快取系統 ──
+        const wikiImageCache = {};
+        const fetchingWiki = new Set();
+        const noPicSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230f172a'/><text x='50' y='55' font-family='sans-serif' font-size='10' text-anchor='middle' fill='%2364748b'>無圖</text></svg>";
+
+        function getWikiImage(wikiUrl) {
+            if (!wikiUrl) return noPicSvg;
+            // Extract title from full URL or use as-is
+            let title = wikiUrl;
+            try {
+                const match = wikiUrl.match(/wikipedia\.org\/wiki\/(.+)/);
+                if (match) title = decodeURIComponent(match[1]);
+            } catch(e) {}
+            if (wikiImageCache[title]) return wikiImageCache[title];
+            if (!fetchingWiki.has(title)) {
+                fetchingWiki.add(title);
+                fetch(`https://zh.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=pageimages&format=json&pithumbsize=300&origin=*`)
+                    .then(r => r.json())
+                    .then(data => {
+                        const pid = Object.keys(data.query.pages)[0];
+                        wikiImageCache[title] = data.query.pages[pid]?.thumbnail?.source || noPicSvg;
+                        document.querySelectorAll(`img[data-wiki="${CSS.escape(title)}"]`).forEach(img => {
+                            img.src = wikiImageCache[title];
+                            img.classList.remove('opacity-0');
+                        });
+                    }).catch(() => { wikiImageCache[title] = noPicSvg; });
+            }
+            return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230f172a'/></svg>";
+        }
+
+        function getWikiTitle(wikiUrl) {
+            if (!wikiUrl) return '';
+            try {
+                const match = wikiUrl.match(/wikipedia\.org\/wiki\/(.+)/);
+                if (match) return decodeURIComponent(match[1]);
+            } catch(e) {}
+            return wikiUrl;
+        }
+
+        // ── Emoji map for encyclopedia categories ──
+        const CATEGORY_EMOJI = {
+            '世界最高山峰': '🏔️',
+            '世界最長河流': '🌊',
+            '世界最大湖泊': '🏞️',
+            '世界最深海溝': '🌊',
+            '世界最大島嶼': '🏝️',
+            '世界最大沙漠': '🏜️',
+            '世界最大海洋': '🌍',
+            '世界面積最大國家': '🗺️',
+            '世界面積最小國家': '🏛️',
+            '世界人口最多國家': '👥',
+            '世界人口密度最高': '🏙️',
+            '世界海岸線最長國家': '⛵',
+            '陸地最快動物': '🐆',
+            '世界最重動物': '🐋',
+            '陸地最高動物': '🦒',
+            '飛行最快鳥類': '🦅',
+            '壽命最長脊椎動物': '🦈',
+            '世界最高建築': '🏗️',
+            '世界最長橋梁': '🌉',
+            '世界最大體育場': '🏟️',
+            '世界最高雕像': '🗿',
+            '世界最長鐵路隧道': '🚇',
+            '全球影史票房最高電影': '🎬',
+            '史上最暢銷電子遊戲': '🎮',
+            'YouTube': '📺',
+            '歷史上最暢銷音樂專輯': '🎵',
+            '地殼中含量最多元素': '⚗️',
+            '熔點最高純金屬元素': '🔥',
+            '莫氏硬度最高': '💎',
+            '量產車最快極速': '🏎️',
+            '最大載客飛機': '✈️',
+            '高鐵運營里程': '🚄',
+            '世界單體最巨樹木': '🌲',
+            '世界最深淡水湖': '💧',
+            '世界最高瀑布': '🌊',
+            '全球國內生產總值': '💰',
+            '世界上跨越時區': '🌐',
+        };
+
+        function getCatEmoji(cat) {
+            for (const key in CATEGORY_EMOJI) {
+                if (cat.includes(key)) return CATEGORY_EMOJI[key];
+            }
+            return '🌟';
+        }
+
+
+        const m3Colors = ['bg-cyan-500', 'bg-indigo-500', 'bg-emerald-500', 'bg-amber-500'];
+        const m3BorderColors = ['border-cyan-500', 'border-indigo-500', 'border-emerald-500', 'border-amber-500'];
+        const m3TextColors = ['text-cyan-400', 'text-indigo-400', 'text-emerald-400', 'text-amber-400'];
+
+
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            if(isError) {
+                t.className = "fixed top-24 left-1/2 transform -translate-x-1/2 bg-red-950/80 border border-red-500/40 text-red-300 backdrop-blur-md px-6 py-3.5 rounded-full shadow-2xl transition-all duration-500 z-50 text-center font-bold tracking-wide text-sm opacity-100 tech-font";
+            } else {
+                t.className = "fixed top-24 left-1/2 transform -translate-x-1/2 bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 backdrop-blur-md px-6 py-3.5 rounded-full shadow-2xl transition-all duration-500 z-50 text-center font-bold tracking-wide text-sm opacity-100 tech-font";
+            }
+            t.style.transform = 'translate(-50%, 0)';
+            setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transform = 'translate(-50%, -20px)';
+            }, 2000);
+        }
+
+
+        const startTimer = () => { 
+            clearInterval(gameState.timerInterval); 
+            gameState.roundSeconds = 0; 
+            gameState.timerInterval = setInterval(() => { 
+                gameState.roundSeconds++; 
+                const display = document.getElementById('game-timer');
+                if (display) {
+                    const min = Math.floor(gameState.roundSeconds / 60).toString().padStart(2, '0');
+                    const sec = (gameState.roundSeconds % 60).toString().padStart(2, '0');
+                    display.innerText = `${min}:${sec}`;
+                }
+            }, 1000); 
+        };
+        const stopTimer = () => clearInterval(gameState.timerInterval);
+
+
+        function handleHomeClick() {
+            playSFX('click');
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.classList.remove('hidden');
+            confirmModal.classList.add('flex');
+        }
+
+
+        function closeConfirmModal() {
+            playSFX('click');
+            const confirmModal = document.getElementById('confirm-modal');
+            confirmModal.classList.add('hidden');
+            confirmModal.classList.remove('flex');
+        }
+
+
+        function confirmQuitGame() {
+            playSFX('click');
+            stopTimer();
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+
+            const doQuit = () => {
+                AudioSystem.play('lobby');
+                gameState.screen = 'menu';
+                document.getElementById('game-header').classList.add('hidden');
+                render();
+            };
+
+            if (gameState.mode === 1 && gameState.m1Count > 0) {
+                openNameEntry({
+                    icon: '🎯',
+                    title: 'MISSION COMPLETE',
+                    subtitle: `星核判讀成績：${gameState.m1Score} 分 / ${gameState.m1Count} 題 — 輸入大名登錄排行榜`,
+                    onConfirm: (name) => {
+                        if (name) saveLeaderboard(1, gameState.m1Score, gameState.m1Count, name);
+                        doQuit();
+                    }
+                });
+            } else if (gameState.mode === 2 && gameState.m2Count > 0) {
+                openNameEntry({
+                    icon: '🔢',
+                    title: 'SORT COMPLETE',
+                    subtitle: `軌道定序成績：${gameState.m2Score} 關 / ${gameState.m2Count} 次 — 輸入大名登錄排行榜`,
+                    onConfirm: (name) => {
+                        if (name) saveLeaderboard(2, gameState.m2Score, gameState.m2Count, name);
+                        doQuit();
+                    }
+                });
+            } else {
+                doQuit();
+            }
+        }
+
+
+        function toggleFullscreen() {
+            playSFX('click');
+            const icon = document.getElementById('fs-icon');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+                if (icon) { icon.className = 'fas fa-compress'; }
+            } else {
+                document.exitFullscreen().catch(() => {});
+                if (icon) { icon.className = 'fas fa-expand'; }
+            }
+        }
+
+
+        function requestStartGame() {
+            try {
+                if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+            } catch (err) {}
+            document.getElementById('fs-helper').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('fs-helper').style.display = 'none';
+                AudioSystem.init();
+                AudioSystem.isMuted = false;
+                const muteIcon = document.getElementById('vol-icon');
+                if (muteIcon) muteIcon.className = 'fas fa-volume-up';
+                AudioSystem.play('lobby');
+            }, 300);
+        }
+
+
+        const shuffle = (array) => { 
+            for(let i = array.length - 1; i > 0; i--) { 
+                const j = Math.floor(Math.random() * (i + 1)); 
+                [array[i], array[j]] = [array[j], array[i]]; 
+            } 
+            return array; 
+        };
+
+
+        // ==========================================
+        // 4. MAIN LAYOUT AND GAME RENDERERS
+        // ==========================================
+        function setScreen(screenName) {
+            gameState.screen = screenName;
+            render();
+        }
+
+
+        // MODE 1 Setup and Start
+        function endMode1Game() {
+            stopTimer();
+            AudioSystem.play('lobby');
+            const acc = Math.round((gameState.m1Score / 10) * 100);
+            const stars = acc >= 90 ? '⭐⭐⭐' : acc >= 60 ? '⭐⭐' : '⭐';
+            const rankMsg = acc >= 90 ? '宇宙級星核判讀官 🚀' : acc >= 70 ? '進階量子分析員 🌟' : acc >= 50 ? '星核見習探測員 🛸' : '量子校準中... 繼續努力！';
+
+            openNameEntry({
+                icon: '🏆',
+                title: 'RECORD YOUR NAME',
+                subtitle: `星核判讀 10 題成績：${gameState.m1Score} 分 — 輸入大名登錄排行榜`,
+                onConfirm: (name) => {
+                    if (name) saveLeaderboard(1, gameState.m1Score, 10, name);
+                    setScreen('menu');
+                    // Show result toast after returning to menu
+                    setTimeout(() => showToast(`本局結束！${gameState.m1Score}/10 題正確 (${acc}%)`), 300);
+                }
+            });
+        }
+
+        function startMode1() {
+            gameState.mode = 1;
+            gameState.m1Score = 0;
+            gameState.m1Count = 0;
+            setScreen('play_m1');
+            startTimer();
+            AudioSystem.play('game');
+            generateMode1Question();
+        }
+
+
+        function generateMode1Question() {
+            // End game if already at 10 questions
+            if (gameState.m1Count >= 10) { endMode1Game(); return; }
+
+            const nextCont = document.getElementById('m1-next-container');
+            if(nextCont) nextCont.classList.add('hidden');
+            const wikiPanel = document.getElementById('m1-wiki-panel');
+            if(wikiPanel) wikiPanel.classList.add('hidden');
+            const nextBtnContainer = document.getElementById('m1-next-btn-container');
+            if(nextBtnContainer) nextBtnContainer.classList.add('hidden');
+            
+            gameState.m1Count++;
+            const countDisplay = document.getElementById('m1-count');
+            if(countDisplay) countDisplay.textContent = gameState.m1Count;
+            
+            const catObj = DATABASE[Math.floor(Math.random() * DATABASE.length)];
+            const correctItem = catObj.items[0]; 
+            gameState.m1CorrectAnswer = correctItem;
+
+
+            let options = [correctItem];
+            let distractors = shuffle(catObj.items.slice(1)).slice(0, 3);
+            options = options.concat(distractors);
+            options = shuffle(options);
+
+
+            const qTitle = document.getElementById('m1-question');
+            if (qTitle) {
+                qTitle.innerHTML = `在這個世界/宇宙中<br><span class="text-cyan-400 text-glow-cyan">『${catObj.cat}』</span>的第一名是？`;
+            }
+            
+            const optionsContainer = document.getElementById('m1-options');
+            if (optionsContainer) {
+                optionsContainer.innerHTML = '';
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'w-full bg-slate-900/30 hover:bg-cyan-950/20 border border-cyan-500/10 hover:border-cyan-400/50 text-slate-200 hover:text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 shadow-md text-left flex justify-between items-center group relative overflow-hidden';
+                    btn.innerHTML = `
+                        <span class="z-10 group-hover:translate-x-2 transition-all tech-font text-sm md:text-base">${opt.n}</span>
+                        <i class="fas fa-chevron-right text-slate-600 group-hover:text-cyan-400 z-10 transition-colors"></i>
+                    `;
+                    btn.onclick = () => checkM1Answer(btn, opt, correctItem, catObj.unit, catObj);
+                    optionsContainer.appendChild(btn);
+                });
+            }
+        }
+
+
+        function checkM1Answer(btn, selectedItem, correctItem, unit, catObj) {
+            const buttons = document.getElementById('m1-options').querySelectorAll('button');
+            buttons.forEach(b => {
+                b.onclick = null;
+                b.classList.remove('hover:bg-cyan-950/20', 'hover:border-cyan-400/50', 'hover:text-white');
+                const span = b.querySelector('span');
+                const icon = b.querySelector('i');
+                if (span.textContent === gameState.m1CorrectAnswer.n) {
+                    b.className = 'w-full bg-cyan-500 text-slate-950 font-black py-4 px-6 rounded-2xl transition-all duration-300 shadow-xl border border-cyan-300 flex justify-between items-center relative overflow-hidden';
+                    icon.className = 'fas fa-check-circle text-slate-950';
+                } else {
+                    b.classList.add('opacity-30');
+                }
+            });
+
+            const fb = document.getElementById('m1-feedback');
+            if (selectedItem.n === gameState.m1CorrectAnswer.n) {
+                gameState.m1Score++;
+                fb.className = "text-md font-bold mb-4 px-5 py-2.5 rounded-full inline-block bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 tech-font";
+                fb.innerHTML = `<i class="fas fa-check-circle mr-1"></i> 校準成功： ${correctItem.v} ${unit} &nbsp; <a href="${correctItem.w}" target="_blank" class="underline text-yellow-400 hover:text-yellow-300 ml-2"><i class="fas fa-search"></i> 深入維基百科</a>`;
+                playSFX('correct');
+                showFlash(true, `+1 分 · ${correctItem.n}`);
+            } else {
+                btn.className = 'w-full bg-rose-600 text-white font-black py-4 px-6 rounded-2xl transition-all duration-300 shadow-xl border border-rose-500 flex justify-between items-center relative overflow-hidden';
+                btn.querySelector('i').className = 'fas fa-times-circle text-white';
+                btn.classList.remove('opacity-30');
+                fb.className = "text-md font-bold mb-4 px-5 py-2.5 rounded-full inline-block bg-rose-950/40 border border-rose-500/30 text-rose-300 tech-font";
+                fb.innerHTML = `<i class="fas fa-times-circle mr-1"></i> 解析出錯！正確應為： ${gameState.m1CorrectAnswer.n} (${correctItem.v} ${unit}) &nbsp; <a href="${correctItem.w}" target="_blank" class="underline text-yellow-400 hover:text-yellow-300 ml-2"><i class="fas fa-search"></i> 探究維基</a>`;
+                playSFX('wrong');
+                showFlash(false, `正確：${gameState.m1CorrectAnswer.n}`);
+            }
+
+            gameState.m1Count;
+            const scoreDisplay = document.getElementById('m1-score');
+            if(scoreDisplay) scoreDisplay.textContent = gameState.m1Score;
+            const countDisplay = document.getElementById('m1-count');
+            if(countDisplay) countDisplay.textContent = gameState.m1Count;
+            
+            // Delay result reveal until after flash animation
+            setTimeout(() => {
+                const nextCont2 = document.getElementById('m1-next-container');
+                if (nextCont2) nextCont2.classList.remove('hidden');
+                showM1WikiPanel(catObj);
+                const nextBtnContainer = document.getElementById('m1-next-btn-container');
+                if (nextBtnContainer) {
+                    nextBtnContainer.classList.remove('hidden');
+                    if (gameState.m1Count >= 10) {
+                        nextBtnContainer.innerHTML = `
+                            <button onclick="endMode1Game()" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-bold tracking-wider py-4 px-12 rounded-full shadow-lg hover:shadow-amber-500/20 transform transition duration-300 hover:scale-105 active:scale-95 tech-font text-sm uppercase w-full md:w-auto">
+                                <i class="fas fa-flag-checkered mr-2"></i> 查看本局成績
+                            </button>`;
+                    }
+                }
+            }, 1000);
+        }
+
+        function showM1WikiPanel(catObj) {
+            const panel = document.getElementById('m1-wiki-panel');
+            if (!panel) return;
+            panel.classList.remove('hidden');
+
+            const badge = document.getElementById('m1-wiki-cat-badge');
+            if (badge) badge.textContent = catObj.cat;
+
+            const content = document.getElementById('m1-wiki-content');
+            if (!content) return;
+
+            // Build wiki knowledge display from sorted items
+            const sorted = [...catObj.items].sort((a,b) => catObj.order === 'desc' ? b.v - a.v : a.v - b.v);
+            const emoji = getCatEmoji(catObj.cat);
+            const orderLabel = catObj.order === 'desc' ? '由大至小' : '由小至大';
+            let html = `
+                <div class="flex items-center gap-3 mb-3 pb-3 border-b border-amber-500/20">
+                    <span class="text-4xl">${emoji}</span>
+                    <div>
+                        <div class="font-bold text-white text-base">${catObj.cat}</div>
+                        <div class="text-[11px] text-slate-500 tech-font mt-0.5">單位：${catObj.unit}　·　排序：${orderLabel}</div>
+                    </div>
+                </div>
+                <ol class="space-y-2 mt-1">`;
+            const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+            sorted.forEach((it, i) => {
+                const isCorrect = i === 0;
+                html += `<li class="flex items-center gap-2 text-sm ${isCorrect ? 'bg-amber-500/10 border border-amber-500/20 rounded-xl px-3 py-2' : 'px-1 py-1'}">
+                    <span class="text-xl w-7 text-center flex-shrink-0">${medals[i] || ''}</span>
+                    <a href="${it.w}" target="_blank" class="font-bold ${isCorrect ? 'text-amber-200' : 'text-cyan-300'} hover:underline flex-grow">${it.n}</a>
+                    <span class="${isCorrect ? 'text-amber-300' : 'text-slate-400'} font-bold text-xs ml-auto whitespace-nowrap">${it.v} ${catObj.unit}</span>
+                    <a href="${it.w}" target="_blank" class="text-slate-500 hover:text-cyan-400 ml-1 text-xs" title="維基百科"><i class="fab fa-wikipedia-w"></i></a>
+                </li>`;
+            });
+            html += `</ol>
+                <div class="mt-4 pt-3 border-t border-amber-500/20 flex items-center justify-between">
+                    <span class="text-[10px] text-slate-500 tech-font">點擊名稱可查閱個別維基條目</span>
+                    <a href="${catObj.wiki}" target="_blank" class="inline-flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-full text-[11px] font-bold transition-all tech-font">
+                        <i class="fab fa-wikipedia-w"></i> 查看完整分類頁面
+                    </a>
+                </div>`;
+            content.innerHTML = html;
+
+            // Scroll wiki panel into view
+            setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        }
+
+        function renderM1Leaderboard() {
+            const el = document.getElementById('m1-leaderboard');
+            if (!el) return;
+            if (leaderboardM1.length === 0) {
+                el.innerHTML = '<p class="text-slate-600 text-center py-2 tech-font">尚無紀錄</p>';
+                return;
+            }
+            el.innerHTML = leaderboardM1.map((e,i) => `
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg ${i===0?'bg-amber-500/10 border border-amber-500/20':'bg-slate-900/30'}">
+                    <span class="text-sm w-5 text-center ${i===0?'text-amber-400':i===1?'text-slate-300':i===2?'text-amber-700/80':'text-slate-600'} font-bold">${i+1}</span>
+                    <span class="text-cyan-300 font-bold tech-font">${e.score}分</span>
+                    <span class="text-slate-500">/ ${e.count}題</span>
+                    <span class="ml-auto text-emerald-400 tech-font">${e.acc}%</span>
+                    <span class="text-slate-600 text-[10px]">${e.date}</span>
+                </div>
+            `).join('');
+        }
+
+        function clearLeaderboard(mode) {
+            if (mode === 1) { leaderboardM1 = []; try { localStorage.removeItem('lb_m1'); } catch(e){} renderLeaderboardModal(); }
+            else if (mode === 2) { leaderboardM2 = []; try { localStorage.removeItem('lb_m2'); } catch(e){} renderLeaderboardModal(); }
+            else if (mode === 3) { leaderboardM3 = []; try { localStorage.removeItem('lb_m3'); } catch(e){} renderLeaderboardModal(); }
+        }
+
+        function renderM3Leaderboard(elId) {
+            const el = document.getElementById(elId || 'm3-leaderboard');
+            if (!el) return;
+            if (leaderboardM3.length === 0) {
+                el.innerHTML = '<p class="text-slate-600 text-center py-2 tech-font">尚無紀錄</p>';
+                return;
+            }
+            el.innerHTML = leaderboardM3.map((e,i) => `
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg ${i===0?'bg-amber-500/10 border border-amber-500/20':'bg-slate-900/30'}">
+                    <span class="text-sm w-5 text-center ${i===0?'text-amber-400':i===1?'text-slate-300':i===2?'text-amber-700/80':'text-slate-600'} font-bold">${i+1}</span>
+                    <span class="text-indigo-300 font-bold tech-font">${e.score}分</span>
+                    <span class="text-slate-500">/ ${e.count}局</span>
+                    <span class="ml-auto text-emerald-400 tech-font">${e.acc}%</span>
+                    <span class="text-slate-600 text-[10px]">${e.date}</span>
+                </div>
+            `).join('');
+        }
+
+
+        // MODE 2 Setup and Start
+        function showMode2Setup() {
+            setScreen('setup_m2');
+        }
+
+
+        function startMode2(diff) {
+            gameState.mode = 2;
+            gameState.m2Difficulty = diff;
+            gameState.m2Score = 0;
+            gameState.m2Count = 0;
+            setScreen('play_m2');
+            startTimer();
+            AudioSystem.play('game');
+            generateMode2Level();
+        }
+
+
+        // Mode 2 click-to-place state
+        let m2State = {
+            hand: [],          // items not yet placed (shuffled)
+            placed: [],        // array of {item, slotIndex} in order of slotIndex
+            selectedCard: null // item currently selected from hand
+        };
+
+        function generateMode2Level() {
+            gameState.m2CurrentCat = DATABASE[Math.floor(Math.random() * DATABASE.length)];
+            const topItems = gameState.m2CurrentCat.items.slice(0, gameState.m2Difficulty).map((item, index) => ({...item, originalRank: index}));
+            m2State.hand = shuffle([...topItems]);
+            m2State.placed = [];
+            m2State.selectedCard = null;
+            renderM2Table();
+        }
+
+        function renderM2Table() {
+            const catHeader = document.getElementById('m2-category');
+            if(catHeader) catHeader.textContent = gameState.m2CurrentCat.cat;
+
+            const hintEl = document.getElementById('m2-order-hint');
+            if (hintEl) {
+                if (gameState.m2CurrentCat.order === 'asc') {
+                    hintEl.textContent = `📈 量子排序: 由低至高（${gameState.m2CurrentCat.unit} 越少越靠前）`;
+                    hintEl.className = 'text-xs md:text-sm font-semibold px-4 py-2 rounded-full inline-block bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 tech-font';
+                } else {
+                    hintEl.textContent = `📉 量子排序: 由高至低（${gameState.m2CurrentCat.unit} 越多越靠前）`;
+                    hintEl.className = 'text-xs md:text-sm font-semibold px-4 py-2 rounded-full inline-block bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 tech-font';
+                }
+            }
+
+            const listContainer = document.getElementById('m2-sortable-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+
+            const slotsRow = document.createElement('div');
+            slotsRow.className = 'flex flex-row items-end gap-3 mb-5 pb-3 overflow-x-auto';
+            slotsRow.id = 'm2-slots';
+
+            for (let i = 0; i < gameState.m2Difficulty; i++) {
+                const slotWrapper = document.createElement('div');
+                slotWrapper.className = 'flex flex-col items-center gap-1 shrink-0';
+
+                const medalClass = i===0?'medal-gold':i===1?'medal-cyan':i===2?'medal-purple':'medal-dim';
+                const rankBadge = document.createElement('div');
+                rankBadge.className = `font-bold text-[10px] w-6 h-6 flex items-center justify-center rounded-md ${medalClass} tech-font`;
+                rankBadge.textContent = i + 1;
+
+                const placedItem = m2State.placed.find(p => p.slotIndex === i);
+                if (placedItem) {
+                    const wikiTitle = getWikiTitle(placedItem.item.w);
+                    const card = document.createElement('div');
+                    card.className = 'm2-slot-card pointer-events-auto';
+                    card.title = placedItem.item.n;
+                    card.innerHTML = `
+                        <div class="poker-card-img">
+                            <img src="${getWikiImage(placedItem.item.w)}" data-wiki="${wikiTitle}" class="opacity-0" onerror="this.src='${noPicSvg}';this.classList.remove('opacity-0');" onload="this.classList.remove('opacity-0');" />
+                        </div>
+                        <div class="poker-card-body">
+                            <div class="poker-card-name">${placedItem.item.n}</div>
+                            <div class="text-[7px] text-amber-400/70 tech-font mt-0.5 flex items-center gap-0.5"><i class="fas fa-undo-alt"></i> 取回</div>
+                        </div>`;
+                    card.addEventListener('click', () => m2ReturnCard(i));
+                    slotWrapper.appendChild(rankBadge);
+                    slotWrapper.appendChild(card);
+                } else {
+                    const slot = document.createElement('button');
+                    const isActive = !!m2State.selectedCard;
+                    slot.className = `m2-slot-btn w-[80px] h-[115px] border-2 border-dashed rounded-xl flex flex-col items-center justify-center gap-1 text-xs font-bold transition-all pointer-events-auto ${isActive ? 'border-cyan-500/70 text-cyan-400 hover:bg-cyan-500/10 slot-active' : 'border-slate-700 text-slate-600 cursor-default'}`;
+                    if (isActive) {
+                        slot.innerHTML = `<i class="fas fa-plus-circle text-lg"></i><span class="text-[9px] text-center leading-tight px-1">${m2State.selectedCard.n}</span>`;
+                        slot.addEventListener('click', () => m2PlaceCard(i));
+                    } else {
+                        slot.innerHTML = `<i class="fas fa-minus text-slate-700 text-lg"></i><span class="text-[9px]">空位</span>`;
+                    }
+                    slotWrapper.appendChild(rankBadge);
+                    slotWrapper.appendChild(slot);
+                }
+                slotsRow.appendChild(slotWrapper);
+            }
+            listContainer.appendChild(slotsRow);
+
+            if (m2State.hand.length === 0) {
+                const allPlaced = document.createElement('div');
+                allPlaced.className = 'text-center text-cyan-400/60 text-xs tech-font py-4';
+                allPlaced.innerHTML = '<i class="fas fa-check-circle mr-1"></i> 所有卡牌已放置，確認後按「送出」';
+                listContainer.appendChild(allPlaced);
+            } else {
+                const handRow = document.createElement('div');
+                handRow.className = 'poker-hand-area pointer-events-auto';
+                m2State.hand.forEach((item) => {
+                    const isSelected = m2State.selectedCard && m2State.selectedCard.n === item.n;
+                    const wikiTitle = getWikiTitle(item.w);
+                    const wrapper = document.createElement('div');
+                    wrapper.className = `poker-card-wrapper ${isSelected ? 'selected-card' : ''}`;
+
+                    const cardEl = document.createElement('div');
+                    cardEl.className = `poker-card ${isSelected ? 'selected' : ''}`;
+                    cardEl.innerHTML = `
+                        <div class="poker-card-img">
+                            <img src="${getWikiImage(item.w)}" data-wiki="${wikiTitle}" class="opacity-0" onerror="this.src='${noPicSvg}';this.classList.remove('opacity-0');" onload="this.classList.remove('opacity-0');" />
+                        </div>
+                        <div class="poker-card-body">
+                            <div class="poker-card-name">${item.n}</div>
+                        </div>`;
+                    if (isSelected) {
+                        const check = document.createElement('div');
+                        check.className = 'poker-card-check';
+                        check.innerHTML = '<i class="fas fa-check" style="font-size:7px;"></i>';
+                        wrapper.appendChild(check);
+                    }
+                    wrapper.appendChild(cardEl);
+                    wrapper.addEventListener('click', () => m2SelectCard(item));
+                    handRow.appendChild(wrapper);
+                });
+                listContainer.appendChild(handRow);
+            }
+
+            // Update submit button state
+            const submitBtn = document.getElementById('m2-submit-btn');
+            if (submitBtn) {
+                const allFilled = m2State.placed.length === gameState.m2Difficulty;
+                submitBtn.disabled = !allFilled;
+                submitBtn.className = `bg-gradient-to-r ${allFilled ? 'from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 shadow-cyan-500/20 cursor-pointer' : 'from-slate-700 to-slate-800 cursor-not-allowed opacity-50'} text-white font-bold py-4 px-16 rounded-full shadow-lg transform transition hover:scale-105 active:scale-95 uppercase tracking-widest text-sm tech-font`;
+            }
+        }
+
+        function m2SelectCard(item) {
+            playSFX('click');
+            // If clicking the already selected card, deselect
+            if (m2State.selectedCard && m2State.selectedCard.n === item.n) {
+                m2State.selectedCard = null;
+            } else {
+                m2State.selectedCard = item;
+            }
+            renderM2Table();
+        }
+
+        function m2PlaceCard(slotIndex) {
+            if (!m2State.selectedCard) return;
+            playSFX('click');
+            // Place card into slot
+            m2State.placed.push({ item: m2State.selectedCard, slotIndex });
+            // Remove from hand
+            m2State.hand = m2State.hand.filter(c => c.n !== m2State.selectedCard.n);
+            m2State.selectedCard = null;
+            renderM2Table();
+        }
+
+        function m2ReturnCard(slotIndex) {
+            playSFX('click');
+            const entry = m2State.placed.find(p => p.slotIndex === slotIndex);
+            if (!entry) return;
+            m2State.hand.push(entry.item);
+            m2State.placed = m2State.placed.filter(p => p.slotIndex !== slotIndex);
+            m2State.selectedCard = null;
+            renderM2Table();
+        }
+
+        function checkMode2Answer() {
+            if (m2State.placed.length !== gameState.m2Difficulty) {
+                showToast("請先將所有卡牌放入排序插槽！", true);
+                return;
+            }
+
+            let isCorrect = true;
+            for (const entry of m2State.placed) {
+                if (entry.item.originalRank !== entry.slotIndex) {
+                    isCorrect = false;
+                    break;
+                }
+            }
+
+            gameState.m2Count++;
+            if (isCorrect) {
+                gameState.m2Score++;
+                playSFX('correct');
+                showFlash(true, '排序正確 · +1 關');
+                updateM2ScoreDisplay();
+                if (gameState.m2Count >= 30) {
+                    setTimeout(() => endMode2Game(), 1200);
+                } else {
+                    showToast("數據校準成功！即將載入下一關。");
+                    setTimeout(() => { generateMode2Level(); }, 1200);
+                }
+            } else {
+                playSFX('wrong');
+                showFlash(false, '排序偏差 · 再試一次');
+                updateM2ScoreDisplay();
+                if (gameState.m2Count >= 30) {
+                    setTimeout(() => endMode2Game(), 1200);
+                } else {
+                    showToast("數據順序偏差，請重新調整排序！", true);
+                }
+            }
+        }
+
+        function endMode2Game() {
+            stopTimer();
+            AudioSystem.play('lobby');
+            gameState.screen = 'result_m2';
+            const header = document.getElementById('game-header');
+            if (header) header.classList.add('hidden');
+            const appEl = document.getElementById('app');
+            const acc = gameState.m2Count > 0 ? Math.round(gameState.m2Score / gameState.m2Count * 100) : 0;
+            appEl.innerHTML = `
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 cosmic-terminal terminal-border overflow-y-auto">
+                <div class="grid-matrix"></div>
+                <div class="space-glass p-8 rounded-3xl max-w-md w-full text-center shadow-2xl border border-purple-500/30 relative animate-scale-up pointer-events-auto z-10">
+                    <div class="text-6xl mb-4">🏁</div>
+                    <div class="inline-block text-[9px] font-bold tracking-widest px-3 py-1 rounded-full border mb-3 tech-font bg-purple-500/10 border-purple-500/30 text-purple-300">MODE 2 · ORBIT ARRAY · COMPLETE</div>
+                    <h2 class="text-2xl font-black text-white tech-font tracking-widest mb-1">遊戲結束</h2>
+                    <p class="text-xs text-slate-400 mb-6">已完成 30 次回答，量子終端數據校準結束。</p>
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        <div class="bg-slate-900/60 border border-cyan-500/20 rounded-2xl p-4">
+                            <div class="text-2xl font-black text-cyan-300 tech-font">${gameState.m2Score}</div>
+                            <div class="text-[10px] text-slate-500 tech-font mt-1">通關數</div>
+                        </div>
+                        <div class="bg-slate-900/60 border border-purple-500/20 rounded-2xl p-4">
+                            <div class="text-2xl font-black text-purple-300 tech-font">30</div>
+                            <div class="text-[10px] text-slate-500 tech-font mt-1">總回答</div>
+                        </div>
+                        <div class="bg-slate-900/60 border border-emerald-500/20 rounded-2xl p-4">
+                            <div class="text-2xl font-black text-emerald-300 tech-font">${acc}%</div>
+                            <div class="text-[10px] text-slate-500 tech-font mt-1">正確率</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="showNameEntryForM2()" class="w-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-bold py-3.5 rounded-xl shadow-lg tracking-widest transition-all tech-font uppercase text-sm">
+                            <i class="fas fa-trophy mr-2"></i> 登錄排行榜
+                        </button>
+                        <button onclick="startMode2(${gameState.m2Difficulty})" class="w-full bg-slate-900/50 hover:bg-slate-800 border border-cyan-500/20 text-cyan-300 font-bold py-3 rounded-xl text-sm tech-font transition-all">
+                            <i class="fas fa-redo mr-2"></i> 再挑戰一局
+                        </button>
+                        <button onclick="confirmQuitGame()" class="w-full text-slate-500 hover:text-slate-300 text-xs tech-font transition-colors py-2">返回終端大廳</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function showNameEntryForM2() {
+            openNameEntry({
+                icon: '🏁',
+                title: 'RECORD YOUR NAME',
+                subtitle: `通關 ${gameState.m2Score} / 30 回合，輸入排行榜大名（最多 8 字）`,
+                onConfirm: (name) => {
+                    saveLeaderboard(2, gameState.m2Score, gameState.m2Count, name);
+                }
+            });
+        }
+
+        function updateM2ScoreDisplay() {
+            const el = document.getElementById('m2-score-display');
+            if (el) el.textContent = `${gameState.m2Score} / ${gameState.m2Count}`;
+            const rem = document.getElementById('m2-remaining');
+            if (rem) rem.textContent = Math.max(0, 30 - gameState.m2Count);
+        }
+
+        function renderM2Leaderboard() {
+            const el = document.getElementById('m2-leaderboard');
+            if (!el) return;
+            if (leaderboardM2.length === 0) {
+                el.innerHTML = '<p class="text-slate-600 text-center py-2 tech-font">尚無紀錄</p>';
+                return;
+            }
+            el.innerHTML = leaderboardM2.map((e,i) => `
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg ${i===0?'bg-amber-500/10 border border-amber-500/20':'bg-slate-900/30'}">
+                    <span class="text-sm w-5 text-center ${i===0?'text-amber-400':i===1?'text-slate-300':i===2?'text-amber-700/80':'text-slate-600'} font-bold">${i+1}</span>
+                    <span class="text-cyan-300 font-bold tech-font">${e.score}關</span>
+                    <span class="text-slate-500">/ ${e.count}次</span>
+                    <span class="ml-auto text-emerald-400 tech-font">${e.acc}%</span>
+                    <span class="text-slate-600 text-[10px]">${e.date}</span>
+                </div>
+            `).join('');
+        }
+
+
+        // MODE 3 Setup and Start
+        function showMode3Setup() {
+            gameState.m3Players = 2;
+            gameState.m3RoundsTotal = 4;
+            setScreen('setup_m3');
+            // Attach handlers AFTER render() has built the DOM
+            document.querySelectorAll('.m3-player-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    document.querySelectorAll('.m3-player-btn').forEach(b => {
+                        b.className = 'm3-player-btn flex-1 py-2.5 rounded-xl border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/10 font-bold text-sm transition-all tech-font';
+                    });
+                    e.target.className = 'm3-player-btn flex-1 py-2.5 rounded-xl border border-cyan-400 bg-cyan-650 text-cyan-200 font-extrabold text-sm transition-all shadow-md tech-font';
+                    gameState.m3Players = parseInt(e.target.dataset.val);
+                    playSFX('click');
+                }
+            });
+
+            document.querySelectorAll('.m3-round-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    document.querySelectorAll('.m3-round-btn').forEach(b => {
+                        b.className = 'm3-round-btn flex-1 py-2.5 rounded-xl border border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/10 font-bold text-xs transition-all tech-font';
+                    });
+                    e.target.className = 'm3-round-btn flex-1 py-2.5 rounded-xl border border-indigo-400 bg-indigo-650 text-indigo-200 font-extrabold text-xs transition-all shadow-md tech-font';
+                    gameState.m3RoundsTotal = parseInt(e.target.dataset.val);
+                    playSFX('click');
+                }
+            });
+        }
+
+
+        function startMode3() {
+            gameState.mode = 3;
+            gameState.m3Scores = new Array(gameState.m3Players).fill(0);
+            gameState.m3Round = 1;
+            gameState.m3CurrentPlayer = 0; 
+            
+            setScreen('play_m3');
+            startTimer();
+            AudioSystem.play('game');
+            startM3Round();
+        }
+
+
+        function startM3Round() {
+            if (gameState.m3Round > gameState.m3RoundsTotal) {
+                endM3Game();
+                return;
+            }
+
+            // Rotating start player: round 1→P0, round 2→P1, etc.
+            const startPlayer = (gameState.m3Round - 1) % gameState.m3Players;
+            gameState.m3CurrentPlayer = startPlayer;
+
+            // Track which players have taken their turn this round
+            // Each player gets exactly ONE card to place per round
+            gameState.m3RoundPlayersLeft = [];
+            for (let i = 0; i < gameState.m3Players; i++) {
+                gameState.m3RoundPlayersLeft.push((startPlayer + i) % gameState.m3Players);
+            }
+
+            gameState.m3CatData = DATABASE[Math.floor(Math.random() * DATABASE.length)];
+            let items = gameState.m3CatData.items.map((item, idx) => ({...item, originalRank: idx}));
+            // Shuffle all items; first card seeds the board, then one per player
+            const shuffled = shuffle([...items]);
+            // Board seed (visible, but rank hidden until round ends)
+            gameState.m3Board = [shuffled[0]];
+            // Each player gets one card in order
+            gameState.m3PlayerCards = {};
+            for (let i = 0; i < gameState.m3Players; i++) {
+                const playerIdx = (startPlayer + i) % gameState.m3Players;
+                gameState.m3PlayerCards[playerIdx] = shuffled[1 + i] || shuffled[0];
+            }
+            // Current card for current player
+            gameState.m3CurrentCard = gameState.m3PlayerCards[gameState.m3CurrentPlayer];
+            // Players who haven't played yet this round (all of them)
+            gameState.m3RoundDone = false;
+
+            updateM3UI();
+        }
+
+
+        function buildM3Layout() {
+            const wrapper = document.getElementById('m3-main-layout');
+            if (!wrapper) return;
+            const isLandscape = window.innerWidth > window.innerHeight;
+
+            if (isLandscape) {
+                // ── 橫屏佈局：四角玩家面板（絕對定位貼角落）
+                // 題目橫條絕對定位，與 P1/P2 面板同高（貼 header 上緣），置中於左右面板之間
+                // 左右欄 padding-top:52px 避開 P1/P2 面板，padding-bottom:52px 避開 P3/P4
+                wrapper.style.cssText = 'top:72px;bottom:0;left:0;right:0;display:flex;flex-direction:row;align-items:stretch;padding:6px 8px;gap:6px;';
+                wrapper.innerHTML = `
+                    <!-- 左欄：ROUND + 輪到誰（P1上/P3下之間，往上靠齊避開P3/P4） -->
+                    <div id="m3-left-panel" style="width:115px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding-top:48px;padding-bottom:120px;">
+                        <div class="bg-slate-900/60 border border-cyan-500/20 rounded-2xl px-3 py-3 text-center w-full shadow-md">
+                            <div class="text-[8px] font-bold text-slate-400 uppercase tracking-widest tech-font mb-1">ROUND</div>
+                            <div class="text-xl font-black text-cyan-400 tech-font" id="m3-round-display">1/4</div>
+                        </div>
+                        <div id="m3-player-turn" class="text-xs font-bold text-white rounded-2xl shadow-lg border-2 py-3 px-2 text-center w-full tech-font"></div>
+                    </div>
+                    <!-- 中欄：題目橫條已移至頂部 fixed 定位 + 星軌(主體) + 提示(下) -->
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;">
+                        <!-- 題目橫條：fixed 定位，與 P1/P2 面板同高（top:4px），置中於左右面板之間 -->
+                        <div class="bg-slate-900/70 border border-cyan-500/25 rounded-xl px-4 py-1 text-center shadow shrink-0" style="position:fixed;top:4px;left:130px;right:138px;z-index:25;">
+                            <span class="text-[10px] text-cyan-400 font-bold tech-font" id="m3-category">類別...</span>
+                        </div>
+                        <div class="flex-grow flex flex-col bg-slate-950/60 border border-cyan-500/10 rounded-2xl shadow-inner overflow-hidden" style="min-height:0;">
+                            <div class="text-center pt-1 pb-0.5 shrink-0">
+                                <span class="text-[8px] font-bold text-cyan-400/50 uppercase tracking-widest tech-font"><i class="fas fa-satellite-dish mr-1"></i>STAR TRACK</span>
+                            </div>
+                            <div class="flex-1 overflow-x-auto overflow-y-hidden pb-2 flex items-center px-3 min-h-0 timeline-container" id="m3-timeline"></div>
+                        </div>
+                        <p class="text-[8px] text-slate-500 text-center tech-font shrink-0">點擊 <span class="text-cyan-400 font-bold">+</span> 插入卡牌</p>
+                    </div>
+                    <!-- 右欄：待出卡牌（P2上/P4下之間，往上靠齊避開P4） -->
+                    <div id="m3-right-panel" style="width:120px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding-top:48px;padding-bottom:120px;">
+                        <div class="text-[8px] font-bold text-slate-400 uppercase tracking-widest tech-font">本回合出牌</div>
+                        <div id="m3-current-card-preview" class="flex flex-col items-center pointer-events-auto"></div>
+                    </div>
+                `;
+            } else {
+                // ── 直屏：星軌(上) | 題目類別(中) | 底部列[ROUND | 卡牌 | 輪到誰]
+                wrapper.style.cssText = 'top:72px;bottom:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;padding:6px 10px 4px;gap:4px;';
+                wrapper.innerHTML = `
+                    <!-- 星軌（場地上方，佔多數空間） -->
+                    <div class="w-full flex-grow flex flex-col bg-slate-950/60 border border-cyan-500/10 rounded-2xl shadow-inner overflow-hidden" style="max-width:600px;min-height:0;">
+                        <div class="text-center pt-2 pb-0.5 shrink-0">
+                            <span class="text-[8px] font-bold text-cyan-400/50 uppercase tracking-widest tech-font"><i class="fas fa-satellite-dish mr-1"></i>STAR TRACK</span>
+                        </div>
+                        <div class="flex-1 overflow-x-auto overflow-y-hidden pb-2 flex items-center px-4 min-h-0 timeline-container" id="m3-timeline"></div>
+                    </div>
+                    <!-- 題目類別（星軌正下方，位置較低） -->
+                    <div class="bg-slate-900/50 border border-cyan-500/15 rounded-xl px-4 py-1.5 text-center w-full shrink-0 shadow" style="max-width:600px;">
+                        <span class="text-[10px] text-cyan-400 font-bold tech-font" id="m3-category">類別...</span>
+                    </div>
+                    <!-- 底部列：ROUND(左) | 當前卡牌(中) | 輪到誰(右) -->
+                    <div class="w-full shrink-0 flex items-center gap-2 justify-center pb-1" style="max-width:600px;height:160px;">
+                        <!-- ROUND 顯示 -->
+                        <div class="bg-slate-900/60 border border-cyan-500/20 rounded-xl flex flex-col items-center justify-center gap-1 shadow" style="width:110px;height:160px;flex-shrink:0;">
+                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-wider tech-font">ROUND</span>
+                            <span class="text-xl font-black text-cyan-400 tech-font" id="m3-round-display">1/4</span>
+                        </div>
+                        <!-- 當前卡牌預覽（強制置中） -->
+                        <div class="flex flex-col items-center justify-center pointer-events-auto" style="flex:1;display:flex;align-items:center;justify-content:center;" id="m3-current-card-preview"></div>
+                        <!-- 輪到誰 -->
+                        <div id="m3-player-turn" class="bg-slate-900/60 font-bold text-white rounded-xl shadow border-2 tech-font text-center flex flex-col items-center justify-center gap-1" style="width:110px;height:160px;flex-shrink:0;"></div>
+                    </div>
+                    <p class="text-[8px] text-slate-500 tech-font shrink-0" style="margin-top:-2px;padding-bottom:2px;">點擊星軌上的 <span class="text-cyan-400 font-bold">+</span> 插入卡牌</p>
+                `;
+            }
+        }
+
+        function updateM3UI() {
+            // Rebuild layout for current orientation
+            buildM3Layout();
+
+            const rd = document.getElementById('m3-round-display');
+            if(rd) rd.textContent = `${gameState.m3Round}/${gameState.m3RoundsTotal}`;
+            
+            // Update turn indicator
+            const turnIndicator = document.getElementById('m3-player-turn');
+            if (turnIndicator) {
+                const isLandscape = window.innerWidth > window.innerHeight;
+                turnIndicator.innerHTML = isLandscape
+                    ? `<span style="font-size:7px;letter-spacing:.1em;color:#94a3b8;">出牌</span><span style="font-size:1rem;">⚡ P${gameState.m3CurrentPlayer + 1}</span>`
+                    : `<span style="font-size:8px;letter-spacing:.1em;color:#94a3b8;">出牌</span><span style="font-size:1.2rem;line-height:1.1;">⚡ P${gameState.m3CurrentPlayer + 1}</span>`;
+                const col = m3PlayerColors[gameState.m3CurrentPlayer];
+                if (isLandscape) {
+                    turnIndicator.style.cssText = `background:${col.bg};border-color:${col.border};`;
+                } else {
+                    turnIndicator.style.cssText = `background:${col.bg};border-color:${col.border};width:110px;height:160px;flex-shrink:0;`;
+                }
+            }
+
+            // Render four-corner player panels
+            renderM3CornerPlayers();
+
+            const catLabel = document.getElementById('m3-category');
+            if(catLabel) catLabel.textContent = `${gameState.m3CatData.cat} (${gameState.m3CatData.unit})`;
+
+            // Update current card preview
+            renderM3CurrentCard();
+
+            renderM3Timeline();
+        }
+
+        const m3CornerPos = ['TL','TR','BL','BR'];
+        const m3PlayerColors = [
+            { bg: 'rgba(14,116,144,0.55)', border: 'rgba(6,182,212,0.5)', text: 'text-cyan-300', nameBg: 'bg-cyan-950/70' },
+            { bg: 'rgba(67,56,202,0.55)', border: 'rgba(99,102,241,0.5)', text: 'text-indigo-300', nameBg: 'bg-indigo-950/70' },
+            { bg: 'rgba(6,95,70,0.55)', border: 'rgba(52,211,153,0.5)', text: 'text-emerald-300', nameBg: 'bg-emerald-950/70' },
+            { bg: 'rgba(120,53,15,0.55)', border: 'rgba(251,191,36,0.5)', text: 'text-amber-300', nameBg: 'bg-amber-950/70' },
+        ];
+
+        function renderM3CornerPlayers() {
+            // Remove old corner panels
+            document.querySelectorAll('.m3-corner-player').forEach(el => el.remove());
+
+            const arena = document.getElementById('m3-arena');
+            if (!arena) return;
+
+            const numPlayers = gameState.m3Players;
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const corners = ['TL','TR','BL','BR'].slice(0, numPlayers);
+
+            for (let i = 0; i < numPlayers; i++) {
+                const corner = corners[i];
+                const isActive = i === gameState.m3CurrentPlayer;
+                const col = m3PlayerColors[i];
+
+                const activeRing = isActive ? 'ring-2 ring-amber-500/60 shadow-[0_0_20px_rgba(245,158,11,0.25)] scale-[1.03] z-30' : 'opacity-85';
+
+                const panelHTML = `
+                    <div class="flex items-center gap-1.5 p-1.5">
+                        <div class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-black ${isActive ? 'bg-amber-500 text-white' : 'bg-slate-800/80 border border-slate-600 ' + col.text}">P${i+1}</div>
+                        <div>
+                            <div class="text-[9px] font-bold ${col.text} tech-font">P${i+1} CORE</div>
+                            <div class="text-[8px] ${isActive ? 'text-amber-400 animate-pulse font-bold' : 'text-slate-500'}">${isActive ? '⚡ 出牌中' : '待機'}</div>
+                        </div>
+                        <span class="text-sm font-black ${col.text} ml-2 tech-font">${gameState.m3Scores[i]}</span>
+                    </div>
+                `;
+
+                // 橫屏四角 / 直屏四角，全部絕對定位
+                let posStyle = '';
+                if (isLandscape) {
+                    if (corner === 'TL') posStyle = 'top:4px;left:4px;';
+                    if (corner === 'TR') posStyle = 'top:4px;right:4px;';
+                    if (corner === 'BL') posStyle = 'bottom:4px;left:4px;';
+                    if (corner === 'BR') posStyle = 'bottom:4px;right:4px;';
+                } else {
+                    if (corner === 'TL') posStyle = 'top:78px;left:4px;';
+                    if (corner === 'TR') posStyle = 'top:78px;right:4px;';
+                    if (corner === 'BL') posStyle = 'bottom:230px;left:4px;';
+                    if (corner === 'BR') posStyle = 'bottom:230px;right:4px;';
+                }
+
+                const panel = document.createElement('div');
+                panel.className = `m3-corner-player ${activeRing}`;
+                panel.style.cssText = `${posStyle}background:${col.bg};border:1.5px solid ${col.border};`;
+                panel.innerHTML = panelHTML;
+                arena.appendChild(panel);
+            }
+        }
+
+        function renderM3CurrentCard() {
+            const el = document.getElementById('m3-current-card-preview');
+            if (!el || !gameState.m3CurrentCard) return;
+            const card = gameState.m3CurrentCard;
+            const wikiTitle = getWikiTitle(card.w);
+            el.innerHTML = `
+                <div class="m3-current-preview">
+                    <div class="m3-current-preview-img">
+                        <img src="${getWikiImage(card.w)}" data-wiki="${wikiTitle}" class="opacity-0" onerror="this.src='${noPicSvg}';this.classList.remove('opacity-0');" onload="this.classList.remove('opacity-0');" />
+                    </div>
+                    <div class="m3-current-preview-body">
+                        <div class="text-[8px] bg-cyan-500/10 text-cyan-300 font-bold px-1.5 py-0.5 rounded tech-font">DATABLOCK</div>
+                        <div class="text-[11px] font-bold text-white text-center leading-tight tech-font">${card.n}</div>
+                        <div class="text-[8px] text-slate-400 text-center">點擊星軌 <i class="fas fa-plus text-cyan-400"></i> 插值</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderM3Timeline() {
+            const tl = document.getElementById('m3-timeline');
+            if(!tl) return;
+            tl.innerHTML = '';
+
+            for (let i = 0; i <= gameState.m3Board.length; i++) {
+                // Gap/insertion button
+                const btn = document.createElement('button');
+                btn.className = 'w-9 h-9 md:w-10 md:h-10 rounded-full border-2 border-dashed border-cyan-500/50 text-cyan-400 flex-shrink-0 flex items-center justify-center hover:bg-cyan-500/20 hover:border-solid hover:scale-110 active:scale-95 transition-all mx-1.5 z-10 bg-slate-950 shadow-md pointer-events-auto gap-pulse-cyan';
+                btn.innerHTML = '<i class="fas fa-plus text-xs"></i>';
+                btn.onclick = () => attemptM3Placement(i);
+                tl.appendChild(btn);
+
+                if (i < gameState.m3Board.length) {
+                    const cardData = gameState.m3Board[i];
+                    const wikiTitle = getWikiTitle(cardData.w);
+                    const card = document.createElement('div');
+                    card.className = 'm3-tl-card mx-1.5';
+                    card.onclick = () => showToast(`${cardData.n}: ${cardData.v} ${gameState.m3CatData.unit}`);
+                    card.innerHTML = `
+                        <div class="m3-tl-card-img">
+                            <img src="${getWikiImage(cardData.w)}" data-wiki="${wikiTitle}" class="opacity-0" onerror="this.src='${noPicSvg}';this.classList.remove('opacity-0');" onload="this.classList.remove('opacity-0');" />
+                        </div>
+                        <div class="m3-tl-card-body">
+                            <div class="text-[7px] text-slate-600 font-bold tech-font">?</div>
+                            <div class="text-[9px] font-bold text-slate-200 text-center leading-snug tech-font">${cardData.n}</div>
+                            <div class="text-[9px] text-cyan-400 font-bold tech-font">${cardData.v}</div>
+                        </div>`;
+                    tl.appendChild(card);
+                }
+            }
+        }
+
+
+        // ── 通用答對/答錯閃現動畫 (Mode 1, 2, 3 共用) ──
+        function showFlash(isCorrect, subText) {
+            const el = document.createElement('div');
+            el.className = isCorrect ? 'm3-flash-correct' : 'm3-flash-wrong';
+            el.innerHTML = isCorrect
+                ? `<div style="font-size:3rem;line-height:1;">✅</div>
+                   <div style="font-size:1.1rem;font-weight:900;color:#6ee7b7;font-family:'Orbitron',sans-serif;letter-spacing:.1em;margin-top:8px;">校準成功</div>
+                   <div style="font-size:.7rem;color:#a7f3d0;margin-top:4px;font-family:'Orbitron',sans-serif;">${subText || 'CORRECT'}</div>`
+                : `<div style="font-size:3rem;line-height:1;">❌</div>
+                   <div style="font-size:1.1rem;font-weight:900;color:#fca5a5;font-family:'Orbitron',sans-serif;letter-spacing:.1em;margin-top:8px;">數據偏差</div>
+                   <div style="font-size:.7rem;color:#fecaca;margin-top:4px;font-family:'Orbitron',sans-serif;">${subText || 'WRONG'}</div>`;
+            document.body.appendChild(el);
+            setTimeout(() => {
+                el.classList.add('out');
+                el.addEventListener('animationend', () => el.remove(), { once: true });
+            }, 900);
+            return el;
+        }
+
+        function showM3Flash(isCorrect, playerIdx) {
+            const el = document.createElement('div');
+            el.className = isCorrect ? 'm3-flash-correct' : 'm3-flash-wrong';
+            el.innerHTML = isCorrect
+                ? `<div style="font-size:3rem;line-height:1;">✅</div>
+                   <div style="font-size:1.1rem;font-weight:900;color:#6ee7b7;font-family:'Orbitron',sans-serif;letter-spacing:.1em;margin-top:8px;">鏈接成功</div>
+                   <div style="font-size:.7rem;color:#a7f3d0;margin-top:4px;font-family:'Orbitron',sans-serif;">P${playerIdx+1} · +1 分</div>`
+                : `<div style="font-size:3rem;line-height:1;">❌</div>
+                   <div style="font-size:1.1rem;font-weight:900;color:#fca5a5;font-family:'Orbitron',sans-serif;letter-spacing:.1em;margin-top:8px;">鏈接失敗</div>
+                   <div style="font-size:.7rem;color:#fecaca;margin-top:4px;font-family:'Orbitron',sans-serif;">P${playerIdx+1} · 不得分</div>`;
+            document.body.appendChild(el);
+            setTimeout(() => {
+                el.classList.add('out');
+                el.addEventListener('animationend', () => el.remove(), { once: true });
+            }, 900);
+        }
+
+        function attemptM3Placement(insertIndex) {
+            let isCorrect = true;
+            
+            if (insertIndex > 0) {
+                const leftCard = gameState.m3Board[insertIndex - 1];
+                if (gameState.m3CurrentCard.originalRank < leftCard.originalRank) {
+                    isCorrect = false; 
+                }
+            }
+            
+            if (insertIndex < gameState.m3Board.length) {
+                const rightCard = gameState.m3Board[insertIndex];
+                if (gameState.m3CurrentCard.originalRank > rightCard.originalRank) {
+                    isCorrect = false; 
+                }
+            }
+
+            // Remove current player from remaining list
+            gameState.m3RoundPlayersLeft = gameState.m3RoundPlayersLeft.filter(p => p !== gameState.m3CurrentPlayer);
+
+            if (isCorrect) {
+                gameState.m3Scores[gameState.m3CurrentPlayer] += 1;
+                gameState.m3Board.splice(insertIndex, 0, gameState.m3CurrentCard);
+                playSFX('correct');
+                showM3Flash(true, gameState.m3CurrentPlayer);
+            } else {
+                playSFX('wrong');
+                showM3Flash(false, gameState.m3CurrentPlayer);
+            }
+
+            // Check if all players have had their turn this round
+            if (gameState.m3RoundPlayersLeft.length === 0) {
+                // Round complete — show results with revealed ranks
+                setTimeout(() => showM3RoundEndModal(), 1000);
+            } else {
+                // Move to next player who hasn't gone yet
+                gameState.m3CurrentPlayer = gameState.m3RoundPlayersLeft[0];
+                gameState.m3CurrentCard = gameState.m3PlayerCards[gameState.m3CurrentPlayer];
+                setTimeout(() => updateM3UI(), 1000);
+            }
+        }
+
+        function showM3RoundEndModal() {
+            playSFX('win');
+            const modal = document.getElementById('m3-modal');
+            const icon = document.getElementById('m3-modal-icon');
+            icon.innerHTML = '<i class="fas fa-satellite text-cyan-400"></i>';
+            document.getElementById('m3-modal-title').textContent = `第 ${gameState.m3Round} 局結算`;
+            document.getElementById('m3-modal-title').className = "text-2xl font-black mb-2 text-cyan-300 tech-font";
+
+            // Build score summary for this round
+            const nextStart = gameState.m3Round % gameState.m3Players;
+            let descHtml = `<div class="text-xs text-slate-400 mb-3 tech-font">下一局起始玩家：<span class="text-amber-400 font-bold">P${nextStart + 1}</span></div>`;
+            
+            document.getElementById('m3-modal-desc').innerHTML = descHtml;
+
+            // Show correct ranking in detail
+            const detail = document.getElementById('m3-modal-detail');
+            detail.classList.remove('hidden');
+            const sorted = [...gameState.m3CatData.items].sort((a,b) => gameState.m3CatData.order === 'desc' ? b.v - a.v : a.v - b.v);
+            const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+            let detailHtml = `<div class="font-bold mb-2 text-cyan-400 tech-font text-xs"><i class="fas fa-list-ol mr-1"></i> 正確排名揭曉：${gameState.m3CatData.cat}</div>`;
+            detailHtml += `<ol class="space-y-1 tech-font text-xs">`;
+            sorted.forEach((it, idx) => {
+                detailHtml += `<li class="flex items-center gap-2 py-0.5"><span class="text-base w-5">${medals[idx]||''}</span><a href="${it.w}" target="_blank" class="text-cyan-300 hover:underline font-bold flex-grow">${it.n}</a><span class="text-amber-300 font-bold">${it.v} ${gameState.m3CatData.unit}</span></li>`;
+            });
+            detailHtml += '</ol>';
+            detail.innerHTML = detailHtml;
+            
+            const btn = modal.querySelector('button');
+            btn.textContent = "前進下個星區";
+            btn.onclick = m3NextRound;
+            modal.classList.remove('hidden');
+        }
+
+        function m3NextRound() {
+            document.getElementById('m3-modal').classList.add('hidden');
+            const detail = document.getElementById('m3-modal-detail');
+            if (detail) detail.classList.add('hidden');
+            gameState.m3Round++;
+            startM3Round();
+        }
+
+
+        function endM3Game() {
+            const modal = document.getElementById('m3-modal');
+            const icon = document.getElementById('m3-modal-icon');
+            
+            playSFX('win');
+            AudioSystem.play('lobby'); 
+            
+            // Calculate winner(s)
+            let maxScore = -1;
+            let winners = [];
+            gameState.m3Scores.forEach((s, i) => {
+                if (s > maxScore) { maxScore = s; winners = [i+1]; }
+                else if (s === maxScore) { winners.push(i+1); }
+            });
+            const finalMaxScore = maxScore;
+            const finalRoundsTotal = gameState.m3RoundsTotal;
+
+            icon.innerHTML = '<i class="fas fa-crown text-amber-400"></i>';
+            document.getElementById('m3-modal-title').textContent = "終端競賽統計結束！";
+            document.getElementById('m3-modal-title').className = "text-2xl font-black mb-2 text-amber-400 tech-font";
+            
+            let resultHtml = `<div class="text-xl font-bold text-white mb-5 tech-font">👑 優勝控制核心: 玩家 P${winners.join(', ')} 👑</div>`;
+            resultHtml += `<div class="flex justify-center gap-4 border-t border-cyan-500/10 pt-4">`;
+            gameState.m3Scores.forEach((s, i) => {
+                resultHtml += `
+                    <div class="text-center bg-slate-900/40 border border-cyan-500/10 p-3 rounded-xl min-w-[70px]">
+                        <div class="font-bold text-xs text-slate-400 tech-font">CORE P${i+1}</div>
+                        <div class="text-xl font-black ${m3TextColors[i]} mt-0.5 tech-font">${gameState.m3Scores[i]}</div>
+                    </div>
+                `;
+            });
+            resultHtml += `</div>`;
+            
+            document.getElementById('m3-modal-desc').innerHTML = resultHtml;
+            document.getElementById('m3-modal-detail').classList.add('hidden');
+            
+            const btn = modal.querySelector('button');
+            btn.textContent = "返回星際大廳";
+            btn.onclick = () => {
+                modal.classList.add('hidden');
+                btn.onclick = m3NextRound; 
+                btn.textContent = "前進下個星區";
+                stopTimer();
+                gameState.screen = 'menu';
+                document.getElementById('game-header').classList.add('hidden');
+                render();
+            };
+            modal.classList.remove('hidden');
+        }
+
+
+        // ==========================================
+        // 4.5 ENCYCLOPEDIA (寰宇圖鑑功能)
+        // ==========================================
+        function showEncyclopedia() {
+            setScreen('encyclopedia');
+        }
+
+        let encyclopediaFilter = '';
+
+        function filterEncyclopedia(query) {
+            encyclopediaFilter = query.trim().toLowerCase();
+            renderEncyclopedia();
+        }
+
+        function renderEncyclopedia() {
+            const container = document.getElementById('encyclopedia-list');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const filtered = DATABASE.filter(catObj => {
+                if (!encyclopediaFilter) return true;
+                const q = encyclopediaFilter;
+                if (catObj.cat.toLowerCase().includes(q)) return true;
+                if (catObj.unit.toLowerCase().includes(q)) return true;
+                if (catObj.items.some(it => it.n.toLowerCase().includes(q))) return true;
+                return false;
+            });
+
+            const countEl = document.getElementById('encyclopedia-count');
+            if (countEl) {
+                if (encyclopediaFilter) {
+                    countEl.textContent = `找到 ${filtered.length} / ${DATABASE.length} 筆結果`;
+                } else {
+                    countEl.textContent = `共 ${DATABASE.length} 個知識類別`;
+                }
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-16 text-slate-500"><div class="text-5xl mb-4">🔍</div><p class="tech-font text-lg">找不到「${encyclopediaFilter}」相關資料</p><p class="text-xs mt-2">試試其他關鍵字，例如：山、鯨魚、建築、電影...</p></div>`;
+                return;
+            }
+
+            filtered.forEach((catObj) => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-950/60 border border-cyan-500/20 rounded-2xl p-5 hover:border-cyan-500/60 transition-all flex flex-col gap-4 relative overflow-hidden';
+
+                const emoji = getCatEmoji(catObj.cat);
+
+                // Sort items correctly for display
+                const sortedItems = [...catObj.items].sort((a,b) => {
+                    return catObj.order === 'desc' ? b.v - a.v : a.v - b.v;
+                });
+
+                let listHtml = `<ol class="list-none space-y-1.5 text-xs md:text-sm text-slate-300 tech-font">`;
+                const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+                sortedItems.forEach((it, idx) => {
+                    listHtml += `
+                        <li class="hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+                            <span class="text-base w-6 text-center">${medals[idx]||''}</span>
+                            <a href="${it.w}" target="_blank" class="font-bold text-white hover:text-cyan-300 transition-colors">${it.n}</a>: 
+                            <span class="text-cyan-400 font-bold ml-auto">${it.v} ${catObj.unit}</span>
+                        </li>`;
+                });
+                listHtml += `</ol>`;
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-900/60 border border-cyan-500/20 flex items-center justify-center text-4xl shrink-0 shadow-inner">
+                            ${emoji}
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start gap-2">
+                                <h3 class="text-base md:text-lg font-black text-cyan-300 tech-font leading-tight">${catObj.cat}</h3>
+                                <a href="${catObj.wiki}" target="_blank" class="bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider transition-colors shrink-0">
+                                    <i class="fab fa-wikipedia-w mr-1"></i> 維基百科
+                                </a>
+                            </div>
+                            <span class="text-[10px] text-slate-500 tech-font">單位：${catObj.unit}</span>
+                        </div>
+                    </div>
+                    <div class="border-t border-cyan-500/10 pt-3">
+                        ${listHtml}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+
+        // ==========================================
+        // 5. VIEW ROUTER AND RENDER SYSTEM
+        // ==========================================
+        function render() {
+            const app = document.getElementById('app');
+            const header = document.getElementById('game-header');
+            
+            if (gameState.screen === 'menu') {
+                header.classList.add('hidden');
+                app.innerHTML = `
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10 cosmic-terminal terminal-border">
+                    <div class="grid-matrix"></div>
+                    
+                    <!-- Floating Star Particles -->
+                    <div class="star-dust w-1 h-1" style="left:15%; top:100%; animation-duration:12s; animation-delay:0s;"></div>
+                    <div class="star-dust w-2 h-2" style="left:40%; top:100%; animation-duration:15s; animation-delay:2s;"></div>
+                    <div class="star-dust w-1 h-1" style="left:75%; top:100%; animation-duration:10s; animation-delay:1s;"></div>
+                    <div class="star-dust w-3 h-3" style="left:85%; top:100%; animation-duration:18s; animation-delay:4s;"></div>
+                    
+                    <!-- Holographic Star Orbits -->
+                    <div class="orbit-ring w-[600px] h-[600px] -top-40 -left-40"></div>
+                    <div class="orbit-ring w-[400px] h-[400px] -bottom-20 -right-20"></div>
+
+
+                    <!-- Main Brand Header -->
+                    <div class="space-glass p-8 sm:p-12 rounded-3xl max-w-xl w-full border-t border-l border-cyan-500/20 shadow-2xl relative overflow-hidden animate-scale-up">
+                        <div class="absolute -top-10 -right-10 text-[120px] text-cyan-500/5 rotate-12 pointer-events-none"><i class="fas fa-globe-asia"></i></div>
+                        <span class="bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-[9px] font-bold px-3 py-1 rounded-full tracking-widest shadow-md mb-4 inline-block tech-font">GLOBAL QUANTUM ARCHIVE</span>
+                        <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-indigo-200 to-cyan-500 tech-font tracking-widest py-1">世界之最</h1>
+                        <p class="text-slate-400 mb-8 text-xs tracking-widest font-light tech-font">寰宇大腦數據終端 · 測量萬物的極值與極限</p>
+                        
+                        <div class="space-y-3 max-w-xs mx-auto relative z-10">
+                            <!-- Mode Buttons Row -->
+                            <div class="grid grid-cols-3 gap-3">
+                                <!-- Mode 1 -->
+                                <button onclick="showTutorial(1)" class="group bg-slate-900/50 hover:bg-cyan-950/50 border border-cyan-500/20 hover:border-cyan-400 rounded-2xl py-5 px-2 flex flex-col items-center gap-2 transition-all hover:scale-105 shadow-lg">
+                                    <span class="text-3xl">🌟</span>
+                                    <span class="text-cyan-300 font-bold text-[10px] tracking-widest tech-font">星核判讀</span>
+                                    <span class="text-slate-500 text-[9px] tech-font">MODE 1</span>
+                                </button>
+                                <!-- Mode 2 -->
+                                <button onclick="showTutorial(2)" class="group bg-slate-900/50 hover:bg-purple-950/50 border border-purple-500/20 hover:border-purple-400 rounded-2xl py-5 px-2 flex flex-col items-center gap-2 transition-all hover:scale-105 shadow-lg">
+                                    <span class="text-3xl">🃏</span>
+                                    <span class="text-purple-300 font-bold text-[10px] tracking-widest tech-font">軌道定序</span>
+                                    <span class="text-slate-500 text-[9px] tech-font">MODE 2</span>
+                                </button>
+                                <!-- Mode 3 -->
+                                <button onclick="showTutorial(3)" class="group bg-slate-900/50 hover:bg-indigo-950/50 border border-indigo-500/20 hover:border-indigo-400 rounded-2xl py-5 px-2 flex flex-col items-center gap-2 transition-all hover:scale-105 shadow-lg">
+                                    <span class="text-3xl">🌐</span>
+                                    <span class="text-indigo-300 font-bold text-[10px] tracking-widest tech-font">星際協議</span>
+                                    <span class="text-slate-500 text-[9px] tech-font">MODE 3</span>
+                                </button>
+                            </div>
+                            <!-- Encyclopedia -->
+                            <button onclick="showEncyclopedia()" class="w-full bg-gradient-to-r from-amber-600/30 to-amber-700/50 hover:from-amber-500/40 hover:to-amber-600/60 text-amber-200 font-semibold py-3 px-6 rounded-xl shadow-lg transition-all hover:scale-105 text-sm flex justify-center items-center gap-2 border border-amber-500/30 tech-font tracking-wide">
+                                <i class="fas fa-book-open text-amber-400"></i> 寰宇世界之最圖鑑
+                            </button>
+                            <!-- Leaderboard -->
+                            <button onclick="openLeaderboardModal()" class="w-full bg-gradient-to-r from-yellow-600/20 to-orange-700/30 hover:from-yellow-500/30 hover:to-orange-600/40 text-yellow-200 font-semibold py-3 px-6 rounded-xl shadow-lg transition-all hover:scale-105 text-sm flex justify-center items-center gap-2 border border-yellow-500/30 tech-font tracking-wide">
+                                <i class="fas fa-trophy text-yellow-400"></i> 查看排行榜
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            } else if (gameState.screen === 'play_m1') {
+                header.classList.remove('hidden');
+                document.getElementById('display-mode-name').innerText = 'STELLAR CORE';
+                app.innerHTML = `
+                <div class="absolute inset-0 cosmic-terminal terminal-border pointer-events-none flex flex-col p-4 overflow-y-auto">
+                    <div class="grid-matrix"></div>
+                    <div class="max-w-2xl mx-auto w-full space-glass border border-cyan-500/20 p-6 sm:p-8 rounded-3xl shadow-2xl relative overflow-hidden pointer-events-auto mt-[80px] mb-4">
+                        <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-500 to-indigo-500"></div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider shadow-sm tech-font">
+                                <i class="fas fa-chart-line mr-1 text-xs"></i> SCORE: <span id="m1-score" class="text-base text-white ml-0.5">${gameState.m1Score}</span>
+                            </span>
+                            <span class="text-slate-400 text-xs font-semibold tracking-wider tech-font">
+                                PROCESS: <span id="m1-count" class="text-sm font-bold text-slate-200">${gameState.m1Count}</span> / 10
+                            </span>
+                        </div>
+
+                        <h3 class="text-center text-cyan-500/60 text-xs font-extrabold tracking-widest uppercase mb-4 tech-font">
+                            <i class="fas fa-star-of-david mr-1"></i> STELLAR CORE
+                        </h3>
+                        <h2 id="m1-question" class="text-xl md:text-3xl font-extrabold text-center text-white leading-relaxed mb-8 select-none tech-font">
+                            連線讀取中...
+                        </h2>
+                        
+                        <div id="m1-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+                        <div class="mt-6 text-center hidden" id="m1-next-container">
+                            <p id="m1-feedback" class="text-lg font-bold mb-4 px-4 py-2 rounded-lg inline-block bg-slate-950/40 border border-cyan-500/10"></p>
+                        </div>
+                    </div>
+
+                    <!-- Wiki Knowledge Panel (shows after answer) -->
+                    <div id="m1-wiki-panel" class="max-w-2xl mx-auto w-full hidden pointer-events-auto mb-4">
+                        <div class="space-glass border border-amber-500/30 rounded-2xl p-5 shadow-xl relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-amber-500 to-yellow-400"></div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fab fa-wikipedia-w text-amber-400 text-lg"></i>
+                                <span class="text-amber-300 font-bold text-sm tracking-wider tech-font">維基百科知識點</span>
+                                <span id="m1-wiki-cat-badge" class="ml-auto bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-0.5 rounded-full text-[10px] font-bold tech-font"></span>
+                            </div>
+                            <div id="m1-wiki-content" class="text-slate-300 text-sm leading-relaxed space-y-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Next Question Button (below wiki panel) -->
+                    <div id="m1-next-btn-container" class="max-w-2xl mx-auto w-full hidden pointer-events-auto mb-8 text-center">
+                        <button onclick="generateMode1Question()" class="bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold tracking-wider py-4 px-12 rounded-full shadow-lg hover:shadow-cyan-500/20 transform transition duration-300 hover:scale-105 active:scale-95 tech-font text-sm uppercase w-full md:w-auto">
+                            <i class="fas fa-chevron-right mr-2"></i> 下一題
+                        </button>
+                    </div>
+                </div>
+                `;
+            } else if (gameState.screen === 'setup_m2') {
+                header.classList.add('hidden');
+                app.innerHTML = `
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-4 cosmic-terminal terminal-border">
+                    <div class="grid-matrix"></div>
+                    <div class="space-glass p-8 rounded-3xl max-w-md w-full text-center shadow-xl border border-cyan-500/20 relative animate-scale-up pointer-events-auto">
+                        <button onclick="confirmQuitGame()" class="absolute top-6 left-6 text-slate-400 hover:text-cyan-400 transition text-sm tech-font"><i class="fas fa-long-arrow-alt-left mr-1"></i> ESCAPE</button>
+                        <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-3xl mx-auto mb-4 border border-cyan-500/20">
+                            <i class="fas fa-exchange-alt rotate-90"></i>
+                        </div>
+                        <h2 class="text-2xl font-black text-white tracking-widest mb-2 tech-font">軌道定序核心</h2>
+                        <p class="text-xs text-slate-400 tracking-wider mb-6">設定量子鏈接長度，點擊卡牌插入正確位置，完成極限數據排序。</p>
+                        
+                        <div class="flex flex-col space-y-3.5 w-full">
+                            <button onclick="startMode2(3)" class="bg-slate-900/30 hover:bg-cyan-950/20 text-cyan-400 hover:text-white font-bold py-4 px-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition-all shadow-md flex justify-between items-center group tech-font">
+                                <span>3 個節點 (簡易模式)</span>
+                                <i class="fas fa-chevron-right text-cyan-500/40 group-hover:text-white transition-colors"></i>
+                            </button>
+                            <button onclick="startMode2(4)" class="bg-slate-900/30 hover:bg-cyan-950/20 text-cyan-400 hover:text-white font-bold py-4 px-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition-all shadow-md flex justify-between items-center group tech-font">
+                                <span>4 個節點 (中等模式)</span>
+                                <i class="fas fa-chevron-right text-cyan-500/40 group-hover:text-white transition-colors"></i>
+                            </button>
+                            <button onclick="startMode2(5)" class="bg-slate-900/30 hover:bg-cyan-950/20 text-cyan-400 hover:text-white font-bold py-4 px-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition-all shadow-md flex justify-between items-center group tech-font">
+                                <span>5 個節點 (挑戰模式)</span>
+                                <i class="fas fa-chevron-right text-cyan-500/40 group-hover:text-white transition-colors"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            } else if (gameState.screen === 'play_m2') {
+                header.classList.remove('hidden');
+                document.getElementById('display-mode-name').innerText = 'ORBIT ARRAY';
+                app.innerHTML = `
+                <div class="absolute inset-0 cosmic-terminal terminal-border pointer-events-none flex flex-col p-4 overflow-y-auto">
+                    <div class="grid-matrix"></div>
+                    <div class="max-w-xl mx-auto w-full mt-[30px] pointer-events-auto">
+                        
+                        <div class="text-center mb-5">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider shadow-sm tech-font">
+                                    <i class="fas fa-check-circle mr-1 text-xs"></i> 通關: <span id="m2-score-display" class="text-white">${gameState.m2Score} / ${gameState.m2Count}</span>
+                                </span>
+                                <span class="bg-indigo-950/40 border border-indigo-500/30 text-indigo-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider shadow-sm tech-font">剩餘 <span id="m2-remaining">${30 - gameState.m2Count}</span> 回合</span>
+                            </div>
+                            <h2 id="m2-category" class="text-2xl md:text-3xl font-black text-cyan-300 drop-shadow-sm tech-font">類別載入中...</h2>
+                            <div class="mt-3 flex justify-center">
+                                <p id="m2-order-hint" class="text-xs md:text-sm font-bold px-4 py-1.5 rounded-full shadow-inner border border-cyan-500/10"></p>
+                            </div>
+                        </div>
+
+                        <!-- Drag Container -->
+                        <div class="space-glass border border-cyan-500/10 rounded-2xl p-4 md:p-6 shadow-2xl">
+
+                            <div id="m2-sortable-list" class="flex flex-col gap-3 relative min-h-[200px] pointer-events-auto"></div>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <button id="m2-submit-btn" onclick="checkMode2Answer()" disabled class="bg-gradient-to-r from-slate-700 to-slate-800 opacity-50 cursor-not-allowed text-white font-bold py-4 px-16 rounded-full shadow-lg transform transition uppercase tracking-widest text-sm tech-font">
+                                寫入終端數據庫
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+                `;
+            } else if (gameState.screen === 'setup_m3') {
+                header.classList.add('hidden');
+                app.innerHTML = `
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-4 cosmic-terminal terminal-border">
+                    <div class="grid-matrix"></div>
+                    <div class="space-glass p-6 sm:p-8 rounded-3xl max-w-md w-full shadow-2xl border border-indigo-500/20 relative animate-scale-up pointer-events-auto">
+                        <button onclick="confirmQuitGame()" class="absolute top-6 left-6 text-slate-400 hover:text-indigo-400 transition text-sm tech-font"><i class="fas fa-long-arrow-alt-left mr-1"></i> ESCAPE</button>
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-3xl mx-auto mb-4 border border-indigo-500/20">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h2 class="text-2xl font-black text-white text-center tracking-widest mb-1 tech-font">星際協議設定</h2>
+                        <p class="text-xs text-slate-400 text-center mb-6">調度多名探測員，輪流將星軌數據放置於正確的位置座標中。</p>
+                        
+                        <div class="space-y-5">
+                            <!-- Players -->
+                            <div>
+                                <label class="block text-slate-400 font-bold text-xs tracking-wider uppercase mb-2 tech-font">
+                                    <i class="fas fa-users mr-1 text-cyan-400"></i> PLAYERS CONTROLLER :
+                                </label>
+                                <div class="flex gap-2">
+                                    <button class="m3-player-btn flex-1 py-2.5 rounded-xl border border-cyan-500/20 text-cyan-200 bg-cyan-650 font-bold text-sm transition-all shadow-md tech-font" data-val="2">2 CORE</button>
+                                    <button class="m3-player-btn flex-1 py-2.5 rounded-xl border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/10 font-bold text-sm transition-all tech-font" data-val="3">3 CORE</button>
+                                    <button class="m3-player-btn flex-1 py-2.5 rounded-xl border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/10 font-bold text-sm transition-all tech-font" data-val="4">4 CORE</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Rounds -->
+                            <div>
+                                <label class="block text-slate-400 font-bold text-xs tracking-wider uppercase mb-2 tech-font">
+                                    <i class="fas fa-history mr-1 text-indigo-400"></i> ROUND TIMES :
+                                </label>
+                                <div class="flex gap-2">
+                                    <button class="m3-round-btn flex-1 py-2.5 rounded-xl border border-indigo-400 bg-indigo-650 text-indigo-200 font-bold text-xs transition-all shadow-md tech-font" data-val="4">短程 (4局)</button>
+                                    <button class="m3-round-btn flex-1 py-2.5 rounded-xl border border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/10 font-bold text-xs transition-all tech-font" data-val="8">中程 (8局)</button>
+                                    <button class="m3-round-btn flex-1 py-2.5 rounded-xl border border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/10 font-bold text-xs transition-all tech-font" data-val="12">長程 (12局)</button>
+                                </div>
+                            </div>
+
+
+                            <button onclick="startMode3()" class="w-full bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold py-4 rounded-2xl shadow-xl hover:shadow-indigo-500/10 transition-all transform hover:scale-[1.02] tracking-widest text-base mt-6 tech-font">
+                                開啟探測網絡 <i class="fas fa-play ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            } else if (gameState.screen === 'play_m3') {
+                header.classList.remove('hidden');
+                document.getElementById('display-mode-name').innerText = 'NEBULA PACT';
+                app.innerHTML = `
+                <div id="m3-arena" class="absolute inset-0 cosmic-terminal terminal-border pointer-events-none" style="top:0;">
+                    <div class="grid-matrix"></div>
+                    <!-- 四角玩家面板由 JS 動態插入 -->
+                    <!-- 中央 layout 由 buildM3Layout() 填充 -->
+                    <div id="m3-main-layout" class="absolute pointer-events-auto" style="top:72px;bottom:0;left:0;right:0;"></div>
+                </div>
+
+                <!-- Modal -->
+                <div id="m3-modal" class="fixed inset-0 bg-slate-950/80 z-40 hidden flex items-center justify-center backdrop-blur-md fade-in pointer-events-auto">
+                    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/20 p-6 md:p-8 rounded-3xl shadow-2xl max-w-md w-[90%] text-center transform scale-95 transition-transform">
+                        <div id="m3-modal-icon" class="text-6xl mb-4"></div>
+                        <h2 id="m3-modal-title" class="text-2xl font-black mb-2 text-white"></h2>
+                        <p id="m3-modal-desc" class="text-sm text-slate-300 leading-relaxed mb-6"></p>
+                        <div id="m3-modal-detail" class="text-left bg-slate-950/50 border border-cyan-500/10 p-4 rounded-xl text-xs md:text-sm mb-6 max-h-48 overflow-y-auto hidden text-slate-200"></div>
+                        <button onclick="m3NextRound()" class="bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold py-3.5 px-8 rounded-xl shadow-lg hover:shadow-cyan-500/10 w-full tracking-wider transition-all tech-font uppercase">
+                            前進下個星區
+                        </button>
+                    </div>
+                </div>
+                `;
+            } else if (gameState.screen === 'encyclopedia') {
+                header.classList.add('hidden');
+                app.innerHTML = `
+                <div class="absolute inset-0 flex flex-col p-4 md:p-8 cosmic-terminal terminal-border overflow-y-auto pointer-events-auto">
+                    <div class="grid-matrix"></div>
+                    
+                    <div class="max-w-4xl mx-auto w-full relative z-10">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b border-cyan-500/20 pb-6">
+                            <div>
+                                <h1 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-indigo-300 tech-font">
+                                    <i class="fas fa-book-open mr-2 text-cyan-400"></i> 寰宇世界之最圖鑑
+                                </h1>
+                                <p class="text-xs text-slate-400 mt-1">匯整世界各領域的最極致數據與知識，並完整鏈接至維基百科知識庫。</p>
+                            </div>
+                            <button onclick="confirmQuitGame()" class="bg-cyan-950/40 hover:bg-cyan-500/20 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 px-5 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-2">
+                                <i class="fas fa-long-arrow-alt-left"></i> 返回終端大廳
+                            </button>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="mb-6 relative">
+                            <div class="relative">
+                                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400/60 text-sm pointer-events-none"></i>
+                                <input type="text" id="encyclopedia-search" placeholder="搜尋關鍵字，例如：山、河流、動物、GDP..." 
+                                    class="w-full bg-slate-900/60 border border-cyan-500/20 focus:border-cyan-400/60 text-slate-200 placeholder-slate-500 text-sm rounded-2xl py-3.5 pl-11 pr-12 outline-none transition-all tech-font focus:bg-slate-900/80"
+                                    oninput="filterEncyclopedia(this.value)">
+                                <button onclick="filterEncyclopedia(''); document.getElementById('encyclopedia-search').value=''" 
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-300 transition-colors text-sm w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/5">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div id="encyclopedia-count" class="text-xs text-slate-500 mt-2 ml-1 tech-font"></div>
+                        </div>
+
+                        <!-- Dynamic Encyclopedia Grid -->
+                        <div id="encyclopedia-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20"></div>
+                    </div>
+                </div>
+                `;
+                renderEncyclopedia();
+            }
+        }
+
+
+        // ── Tutorial Modal ──
+        let pendingTutorialMode = null;
+
+        const TUTORIAL_DATA = {
+            1: {
+                icon: '🌟',
+                badge: 'MODE 1 · STELLAR CORE',
+                badgeClass: 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300',
+                title: '星核判讀',
+                btnClass: 'bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white',
+                steps: [
+                    { icon: '❓', text: '系統提出一個世界之最的題目，例如「哪座山最高？」' },
+                    { icon: '🔘', text: '從四個選項中點擊你認為正確的答案。' },
+                    { icon: '✅', text: '答對得分，答錯顯示正確答案，附上維基百科知識說明。' },
+                    { icon: '♾️', text: '無限題數，看看你能累積多高的連線分數！' },
+                ]
+            },
+            2: {
+                icon: '🃏',
+                badge: 'MODE 2 · ORBIT ARRAY',
+                badgeClass: 'bg-purple-500/10 border-purple-500/30 text-purple-300',
+                title: '軌道定序',
+                btnClass: 'bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white',
+                steps: [
+                    { icon: '🃏', text: '手牌中有數張世界之最的卡牌，每張顯示一個數值。' },
+                    { icon: '🖱️', text: '選取一張手牌卡，再點擊時間軸上的空格插入。' },
+                    { icon: '📊', text: '目標是讓時間軸從左到右保持正確排序（由大到小或小到大）。' },
+                    { icon: '⚡', text: '插入越多正確位置，分數越高！插錯則結束本局。' },
+                ]
+            },
+            3: {
+                icon: '🌐',
+                badge: 'MODE 3 · NEBULA PACT',
+                badgeClass: 'bg-indigo-500/10 border-indigo-500/30 text-indigo-300',
+                title: '星際協議',
+                btnClass: 'bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white',
+                steps: [
+                    { icon: '👥', text: '2～4 名玩家輪流進行，每回合換一位玩家操作。' },
+                    { icon: '🃏', text: '當前玩家從手牌選一張，插入公共時間軸的合適位置。' },
+                    { icon: '✅', text: '插入正確位置得一分；插入錯誤則失去一分。' },
+                    { icon: '🏆', text: '設定局數結束後，得分最高者獲勝！' },
+                ]
+            }
+        };
+
+        function showTutorial(mode) {
+            pendingTutorialMode = mode;
+            const d = TUTORIAL_DATA[mode];
+            document.getElementById('tut-icon').textContent = d.icon;
+            const badge = document.getElementById('tut-badge');
+            badge.textContent = d.badge;
+            badge.className = `inline-block text-[9px] font-bold tracking-widest px-3 py-1 rounded-full border mb-3 tech-font ${d.badgeClass}`;
+            document.getElementById('tut-title').textContent = d.title;
+            document.getElementById('tut-steps').innerHTML = d.steps.map(s => `
+                <div class="flex items-start gap-3 bg-slate-900/50 border border-slate-700/50 rounded-xl px-3 py-2.5">
+                    <span class="text-lg leading-none mt-0.5">${s.icon}</span>
+                    <span class="text-slate-300 text-xs leading-relaxed">${s.text}</span>
+                </div>
+            `).join('');
+            const btn = document.getElementById('tut-start-btn');
+            btn.className = `w-full font-bold py-3.5 rounded-xl shadow-lg tracking-widest transition-all tech-font uppercase text-sm ${d.btnClass}`;
+            btn.onclick = () => { closeTutorial(); launchMode(mode); };
+            const modal = document.getElementById('tutorial-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeTutorial() {
+            const modal = document.getElementById('tutorial-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            pendingTutorialMode = null;
+        }
+
+        function launchMode(mode) {
+            if (mode === 1) startMode1();
+            else if (mode === 2) showMode2Setup();
+            else if (mode === 3) showMode3Setup();
+        }
+
+        window.onload = () => {
+            render();
+            const unlock = () => {
+                requestStartGame();
+                document.removeEventListener('click', unlock);
+                document.removeEventListener('keydown', unlock);
+                document.removeEventListener('touchstart', unlock);
+            };
+            document.addEventListener('click', unlock);
+            document.addEventListener('keydown', unlock);
+            document.addEventListener('touchstart', unlock);
+        };
+
+
+        window.addEventListener('resize', () => { 
+            if (gameState.screen !== 'menu') {
+                render(); 
+                if(gameState.mode === 2) renderM2Table();
+                if(gameState.mode === 3) updateM3UI();
+                if(gameState.screen === 'encyclopedia') renderEncyclopedia();
+            }
+        });
+    </script>
+</body>
+</html>
